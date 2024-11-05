@@ -1,0 +1,1082 @@
+---
+title: "Tarea 3"
+output:
+  html_document:
+    df_print: paged
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+![](banner.png)
+
+<center>
+
+<h1>Tarea 3: Frequentist Inference II</h1>
+
+</center>
+
+<center><strong>CC6104: Statistical Thinking</strong></center>
+
+#### **Integrantes :**
+
+-   Andrés Calderón Guardia
+-   Delaney Tello Espinoza
+
+#### **Cuerpo Docente:**
+
+-   Profesor: Felipe Bravo M.
+-   Auxiliar: Martín Paredes y Benjamín Farías
+
+#### **Fecha límite de entrega:**
+
+### **Índice:**
+
+1.  [Objetivo](#id1)
+2.  [Instrucciones](#id2)
+3.  [Referencias](#id3)
+4.  [Elaboración de Código](#id5)
+
+### **Objetivo**<a name="id1"></a>
+
+[Bienvenid\@s](mailto:Bienvenid@s){.email} a la tercera tarea del curso
+Statistical Thinking. Esta tarea tiene como objetivo evaluar los
+contenidos teóricos de la segunda parte del curso, los cuales se enfocan
+principalmente en el diseño de experimentos, test de hipótesis y
+regresión lineal. Si aún no han visto las clases, se recomienda visitar
+los enlaces de las referencias.
+
+La tarea consta de una parte teórica que busca evaluar conceptos vistos
+en clases. Seguido por una parte práctica con el fin de introducirlos a
+la programación en R enfocada en el análisis estadístico de datos.
+
+### **Instrucciones:**<a name="id2"></a>
+
+-   La tarea se realiza en grupos de **máximo 2 personas**. Pero no
+    existe problema si usted desea hacer de forma individual.
+-   La entrega es a través de u-cursos a más tardar el día estipulado en
+    la misma plataforma. A las tareas atrasadas se les descontará un
+    punto por día.
+-   El formato de entrega es este mismo **Rmarkdown** y un **html** con
+    la tarea desarrollada. Por favor compruebe que todas las celdas han
+    sido ejecutadas en el archivo html.
+-   Al momento de la revisión tu código será ejecutado. Por favor
+    verifica que tu entrega no tenga errores de compilación.
+-   No serán revisadas tareas desarrolladas en Python.
+-   Está **PROHIBIDO** la copia o compartir las respuestas entre
+    integrantes de diferentes grupos.
+-   Pueden realizar consultas de la tarea a través de U-cursos y/o del
+    canal de Discord del curso.
+
+### **Referencias:**<a name="id3"></a>
+
+Slides de las clases:
+
+-   [Design of Experiments & Hypothesis
+    Testing](https://github.com/dccuchile/CC6104/blob/master/slides/ST-hypothesis.pdf)
+-   [Linear
+    Regression](https://github.com/dccuchile/CC6104/blob/master/slides/ST-regression.pdf)
+
+Enlaces a videos de las clases:
+
+-   Design of Experiments & Hypothesis Testing:
+    [video1](https://youtu.be/3MueyHnNNig)
+    [video2](https://youtu.be/JuyIrya23E0)
+    [video3](https://youtu.be/OXTyG6DIvK4)
+    [video4](https://youtu.be/95QeSwrNoLI)
+    [video5](https://youtu.be/ZCr3WCdc-54)
+    [video6](https://youtu.be/T6ZR0KoKhBQ)
+-   Introduction to Statistical Inference:
+    [video1](https://youtu.be/ZLZXJPKH6tU)
+    [video2](https://youtu.be/mW7bHkJBcB4)
+    [video3](https://youtu.be/SHa5Neb7bfg)
+    [video4](https://youtu.be/rCD_jofxecY)
+    [video5](https://youtu.be/ir4P_f3s44g)
+    [video6](https://youtu.be/wfNhJWHPOi8)
+
+------------------------------------------------------------------------
+
+# Elaboración de Código<a name="id5"></a>
+
+En la siguiente sección deberá resolver cada uno de los experimentos
+computacionales a través de la programación en R. Para esto se le
+aconseja que cree funciones en R, ya que le facilitará la ejecución de
+gran parte de lo solicitado.
+
+Para el desarrollo preste mucha atención en los enunciados, ya que se le
+solicitará la implementación de métodos sin uso de funciones
+predefinidas. Por otro lado, Las librerías permitidas para desarrollar
+de la tarea 3 son las siguientes:
+
+```{r}
+# Manipulación de estructuras
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+
+# Para realizar plots
+library(scatterplot3d)
+library(ggplot2)
+library(plotly)
+
+# Manipulación de varios plots en una imagen.
+library(gridExtra)
+```
+
+## Contextualización
+
+En este apartado se verán conceptos que será necesario revisar para
+responder a las siguientes preguntas.
+
+### Z-test
+
+En clases se han visto diferentes tipos de test de hipótesis para
+demostrar una proposición sobre algún parámetro. Uno de los test vistos
+en clases es el Z-Test, el cual su distribución del test estadístico
+bajo la hipótesis nula se puede aproximar a una Gaussina. Para la
+aplicación de este test, resaltan los siguientes puntos:
+
+-   Cada uno de los puntos de la muestra deben ser independientes unos
+    de otros.
+-   Al utilizar una distribución normal en la hipótesis nula, este test
+    debería utilizarse cuando se tiene un número considerable de
+    observaciones, ya que la sampling distribution de la media tiende a
+    una gaussiana, de lo contrario se debería usar un T-test.
+
+Para calcular la significancia estadística al igual que con otros
+métodos esta se debe calcular como:
+
+-   Menor/Cola-Izquierda (one-tailed): La Hipótesis Nula H0:
+    $\mu \geq \mu0$ vs Hipótesis Alternativa H1: $\mu < \mu0$.
+-   Superior/Cola-Derecha (one-tailed): La Hipótesis Nula H0:
+    $\mu \leq \mu0$ vs Hipótesis Alternativa H1: $\mu > \mu0$.
+-   Dos-Colas/Two-tailed: Hipótesis Nula H0: $\mu = \mu0$ vs Hipótesis
+    Alternativa H1: $\mu \neq \mu0$.
+
+Luego, dependiendo del objetivo del test tenemos las metodologías
+one-sample y two-sample. Utilizaremos One-Sample cuando nuestro objetivo
+es comparar la media de una muestra con la media de la población. El
+Z-score del One-Sample se define como:
+
+$$Z-score_{One-Sample} = \dfrac{\bar x - \mu}{\dfrac{\sigma}{\sqrt n}}$$
+Donde $\bar x$ es la media de la muestra, $\mu$ es la media de la
+población, $\sigma$ es la desviación estándar de la población y $n$ es
+el tamaño de la muestra.
+
+Por otro lado, se utiliza Two-Sample cuando queremos comparar la media
+de dos muestras. El Z-score de Two-Sample se define con la ecuación:
+
+$$Z-score_{Two-Sample} = \dfrac{(\bar x_2 - \bar x_1) - (\mu_1 - \mu_2)}{\dfrac{\sigma_1}{\sqrt n_1}+\dfrac{\sigma_2}{\sqrt n_2}}$$
+Donde $(\bar x_2 - \bar x_1)$ es la diferencia de las medias de la
+muestra, $(\mu_1 - \mu_2)$ la diferencia de las medias de la población,
+$\sigma_{1,2}$ la desviación estándar de la población y $n_{1,2}$ el
+tamaño de las muestras.
+
+### Multiples Test
+
+En la práctica aparece la necesidad de testear múltiples hipótesis (por
+ejemplo en biología se pueden utilizar múltiples grupos de control o
+querer estudiar múltiples resultados de un mismo experimento), de esta
+forma la primera idea es testear individualmente cada una de las
+hipótesis, el problema de este enfoque es que la probabilidad de que se
+obtenga al menos un resultado significante crece rápidamente (con un
+nivel de significancia $\alpha = 0.05$ y $20$ test ya se alcanza una
+probabilidad de $64\%$ de tener resultados significantes por azar).
+
+Una forma de corregir los inconvenientes del método anterior es utilizar
+el método de **Bonferroni correction** quien propone cambiar $\alpha$
+por $\alpha/m$ (donde $m$ es la cantidad de test de hipotesis
+realizados), esto resulta que las probabilidades de rechazar por error
+se mantengan bajas. De esta forma los p-valores obtenidos en un test de
+hipótesis y al utilizar Bonferroni correction, quedan dados por el
+producto de un $p-valor_{i}$ y la cantidad de test realizados:
+$\text{p-valor}_{i}*m$.
+
+### Pregunta 1: "I´ve Got The Power!"
+
+El objetivo de esta pregunta es programar la potencia de un test de
+hipótesis y observar como se comportan las la hipótesis nula v/s la
+alternativa para un Z-test. Con el desarrollo de este ejercicio, podrán
+visualizar las diferentes partes que conforman a un test de hipótesis,
+identificar que es el p-valor y evidenciar como varia la potencia de un
+test one-sample y two-sample al variar $\alpha$.
+
+Para recordar; sabemos que en estadística el concepto de potencia viene
+dado por:
+
+$$Power = 1 - \beta$$
+
+Donde $\beta$ es la probabilidad de obtener un error de tipo II. Con
+esto, la potencia estadística viene a representar la probabilidad de
+rechazar la hipótesis nula cuando esta es falsa. O sea, la potencia de
+una prueba es la probabilidad de encontrar un resultado positivo dado
+que este existe. Una de las formas de representar la potencia de un test
+es a través del siguiente gráfico:
+
+<img src="https://blogs.sas.com/content/iml/files/2013/05/simttest.png" alt="study" height="250"/>
+
+</p>
+
+Del gráfico, es posible visualizar que a medida que aumenta la
+diferencia en la media de la población, se obtienen mayores valores de
+potencia estadística.
+
+Recordada que es la potencia de un test de hipótesis, a continuación,
+usted deberá programar una función que sea capaz de obtener la potencia
+de un Z-test one-sample y two-sample. Para esto por favor considere los
+siguientes puntos:
+
+-   Crear una función que posea los siguientes argumentos:
+
+``` r
+    function(n1=NULL, sigma1=0.5, 
+    n2=NULL,sigma2=0.5, mu.Ha=0 , 
+    mu.True=0, alfa=0.05)
+```
+
+De los argumentos, tendremos que: $n1$ representa la cantidad de datos
+para la muestra 1, $sigma1$ es la desviación estándar de la muestra 1,
+$n2$ la cantidad de datos para la muestra 2, $sigma2$ la desviación
+estándar para la muestra 2, $mu.Ha$ el mu del test de hipótesis y
+$mu.True$ la media de la población real. Notar que la presencia de una
+segunda muestra solo es para el caso two-sample, para el caso one-sample
+el argumento de entrada $n2$ debería ser nulo.
+
+-   La función creada debe ser capaz de calcular el Z-test con el método
+    One-sided (utilice solo la cola superior de la alternativa
+    one-sided). Notar que la función al recibir un argumento nulo en
+    $n2$ debería asumir que se trata de un test one-sample
+    automáticamente.
+-   Al recibir un valor no nulo para $n2$, $mu.Ha$ representará la
+    diferencia entre las medias de las muestras y $mu.True$ la
+    diferencia de las medias de la población de las muestras 1 y 2.
+-   La salida de la función deberá retornar la potencia del test y un
+    plot de las gaussianas que conforman el test de hipótesis. Para el
+    caso del plot, observe los ejemplos de plot dispuestos más abajo.
+-   Si utiliza el esqueleto propuesto, complete y comente que realiza
+    cada una de las partes de la función one-sample entregada.
+
+Codificada la función realice los siguientes experimentos:
+
+-   Obtener el gráfico de potencia (visto al inicio de la pregunta) al
+    variar la media poblacional para los siguientes argumentos de
+    entrada:
+
+$$ n1=16, sigma1=16, mu.Ha=100 , mu.True=Variar, alfa=0.05 $$
+$$ n1=16, sigma1=16, mu.Ha=100 , mu.True= Variar, alfa=0.01 $$
+$$ n1=16, sigma1=16, mu.Ha=100 , mu.True= Variar, alfa=0.1 $$
+
+Se le recomienda que la variación se realice a través de un `for` y
+grafique las curvas dentro de un mismo gráfico para observar potenciales
+diferencias entre ellas.
+
+-   Diseñe un experimento one-sample y visualice cómo se comportan las
+    distribuciones normales de la hipótesis nula y la hipótesis
+    alternativa al variar $\alpha$.
+
+-   Diseñe un experimento Two-sample y visualice cómo se comportan las
+    distribuciones normales de la hipótesis nula y la hipótesis
+    alternativa al variar $\alpha$.
+
+Para el diseño de experimentos y/o comprobación de sus métodos puede
+serles útiles (no hay problema si decide utilizar los mismos ejemplos):
+
+-   one-sample: [Power
+    Functions](https://online.stat.psu.edu/stat415/lesson/25/25.2)
+-   Two-Sample: [Simple Power Calculation for Two-Sample Z
+    Test](https://ytliu0.github.io/Stat_Med/power2.html)
+
+A su vez, en estas fuentes se incluyen las visualizaciones esperadas de
+las distribuciones normales para cada experimento. Estos experimentos
+principalmente deben consistir en ver cómo cambia la potencia al cambiar
+alguno de los parámetros (por ejemplo $\alpha$), y se espera que se
+entregue un comentario acorde.
+
+**Respuesta**
+
+```{r}
+# Power Function, El esqueleto posee como ejemplo como obtener la potencia de un z-test one-sample.
+# Si utiliza este esqueleto deberá comentar la función que cumple cada una de las partes entregadas
+power.z.test <- function(n1=NULL, sigma1=0.5, 
+                         n2=NULL,sigma2=0.5, mu.Ha=0 , 
+                         mu.True=0, alfa=0.05) {
+  if(is.null(n2)){
+    # calculamos valor de Z critico según distribución normal
+    Z = qnorm(1-alfa)
+    #Estamos en el caso de one-sample, entonces el denominador es el de la primera ecuación dada en el enunciado
+    denominador = sigma1/sqrt(n1)
+    #calculamos la media muestral
+    X_bar = Z*denominador + mu.Ha
+    #calculamos el numerador del caso one-sample
+    numerador = X_bar - mu.True
+    #calculamos z-score one-sample con lo calculado previamente
+    Z = numerador/denominador
+    #finalmente calculamos el power
+    Power = 1 - pnorm(Z)
+    
+    # Aquí se calculan los limites inferiores y máximos del gráfico
+    min_lim = min(rnorm(1000, mean=mu.Ha, sd=denominador)) - 
+      round(min(rnorm(1000, mean=mu.Ha, sd=denominador)))%%10
+    max_lim = max(rnorm(1000, mean=mu.True, sd=denominador)) +
+      round(max(rnorm(1000, mean=mu.True, sd=denominador)))%%10
+      
+    # Aquí se genera un gráfico para comparar mu.Ha y mu.True, se generan funciones de densidad de una distribución normal bajo estas dos hipótesis. Además, se marca la región de rechazo de la hipótesis nula
+    plot <- ggplot(data.frame(x = c(min_lim, max_lim)), aes(x)) + 
+      stat_function(fun = dnorm, args = list(mean = mu.Ha, sd = denominador), 
+                    col='red') +
+      stat_function(fun = dnorm, args = list(mean = mu.True, sd = denominador), 
+                    col='blue') +
+      stat_function(fun = dnorm, args = list(mean = mu.True, sd = denominador), 
+                    xlim = c(X_bar,max_lim), geom = "area", fill='red') + 
+      geom_vline(xintercept = X_bar, linetype="dotted", size=1) +
+      annotate(x=X_bar, y=+Inf,label="alpha", vjust=2, geom="label") +
+      theme_minimal() +
+      ggtitle("H0 vs Ha") +
+      xlab(expression(bar(X))) + ylab("Density")
+    } else {
+     # calculamos valor de Z crítico según distribución normal
+      Z = qnorm(1-alfa)
+      #Estamos en el caso de two-sample, entonces el denominador es el de la segunda ecuación dada en el enunciado
+      denominador =(sigma1/sqrt(n1))+(sigma2/sqrt(n2))
+      X_bar_diff = Z * denominador + mu.Ha
+      #calculamos el numerador (xbar1 - xbar2) - (mu1 - mu2) del caso two-sample
+      numerador =X_bar_diff - mu.True
+      #calculamos z-score two-sample con lo calculado previamente
+      Z_e = numerador/denominador
+      #finalmente calculamos el power
+      Power = 1 - pnorm(Z_e)
+      
+      # Aquí se calculan los limites inferiores y máximos del gráfico
+      min_lim = min(rnorm(1000, mean=mu.Ha, sd=denominador)) - 
+        round(min(rnorm(1000, mean=mu.Ha, sd=denominador)))%%10
+      max_lim = max(rnorm(1000, mean=mu.True, sd=denominador)) +
+        round(max(rnorm(1000, mean=mu.True, sd=denominador)))%%10
+      
+        
+      # 
+      
+      # 
+      plot <- ggplot(data.frame(x = c(min_lim, max_lim)), aes(x)) + 
+      stat_function(fun = dnorm, args = list(mean = mu.Ha, sd = denominador), 
+                    col='red') +
+      stat_function(fun = dnorm, args = list(mean = mu.True, sd = denominador), 
+                    col='blue') +
+      stat_function(fun = dnorm, args = list(mean = mu.True, sd = denominador), 
+                    xlim = c(mu.Ha,max_lim), geom = "area", fill='red') + 
+      geom_vline(xintercept = mu.Ha, linetype="dotted", linewidth=1) +
+      annotate(x=mu.Ha, y=+Inf,label="alpha", vjust=2, geom="label") +
+      theme_minimal() +
+      ggtitle("H0 vs Ha") +
+      xlab(expression(bar(X2) - bar(X1))) + ylab("Density")
+    }
+
+  # Como R no permite retornar dos salidas usamos una lista
+  # Los resultados se llaman con $plot o $power
+  return(list(plot=plot,power=Power))
+}
+
+# Plot de gráfico de potencia
+
+# Experimentos
+n1<-16
+sigma1<-16
+mu.Ha<-100
+alfa<-c(0.05,0.01,0.1)
+mu.True <- seq(90,150,by=1)
+results<-data.frame()
+for(i in alfa){
+  for(j in mu.True){
+    result <- power.z.test(n1 = n1, sigma1 = sigma1, 
+                           n2 = NULL, sigma2 = NULL, mu.Ha = mu.Ha, 
+                           mu.True = j, alfa = i)
+    results <- rbind(results, data.frame(mu_True = j, alfa = i, power = result$power))
+    
+  }
+}
+ggplot(results, aes(x = mu_True, y = power, color = factor(alfa))) +
+  geom_line() + geom_point()+
+  labs(title = "Power en distintos experimentos",
+       x = expression(mu.True),
+       y = "Power",
+       color = expression(alpha))
+```
+
+```{r}
+n1<-16
+sigma1<-16
+mu.Ha<-100
+alfa<-c(0.05,0.01,0.1)
+mu.True <- seq(90,150,by=1)
+results2<-data.frame()
+for(i in alfa){
+  for(j in mu.True){
+    result <- power.z.test(n1 = n1, sigma1 = sigma1, 
+                           n2 = n1, sigma2 = 25, mu.Ha = mu.Ha, 
+                           mu.True = j, alfa = i)
+    results2 <- rbind(results2, data.frame(mu_True = j, alfa = i, power = result$power))
+    
+  }
+}
+ggplot(results2, aes(x = mu_True, y = power, color = factor(alfa))) +
+  geom_line() + geom_point()+
+  labs(title = "Power en distintos experimentos con two samples",
+       x = expression(mu.True),
+       y = "Power",
+       color = expression(alpha))
+```
+
+Al observar ambos gráficos vemos que al aumentar el valor de mu.True, el
+power también aumenta. Es decir, a medida que mu.True se aleja de la
+media hipotética, la probabilidad de rechazar la hipótesis nula aumenta.
+También se tiene que al aumentar el alfa, la probabilidad de rechazar la
+hipótesis nula aumenta y esto se ve reflejado en las curvas, ya que las
+que alcanzan valores más altos más rápidamente son con alfa=0.1
+(entonces, con alfas altos ocurre este comportamiento).
+
+## Al comparar ambos gráficos, vemos que para el caso de two sample, las curvas aumentan de forma más lenta que en one-sample. Esto se puede deber a que al tener dos samples, se agrega una mayor variabilidad a los datos y entonces es menos propenso a variar al alterar los valores, haciendo que necesite valores de mu.True más altos para alcanzar el máximo.
+
+### Pregunta 2: Z-test
+
+Esta pregunta tiene como objetivo comprender como funciona un test de
+hipótesis y como deberíamos abordar la realización de múltiples test de
+hipótesis con datos reales.
+
+La pregunta deberá ser desarrollada utilizando el dataset
+`marketing_campaign.csv`. Con esto, deberá programar un Z-test, con el
+cual estudiará a través de experimentos el `Income` de personas con los
+grados académicos `Graduation`, `Master` y `PhD`. Para realizar esto
+considere la elaboración de los siguientes puntos de forma secuencial:
+
+-   Modificar el dataframe entregado generando un estructura apta para
+    el test de hipótesis. Una estructura que se les aconseja utilizar
+    son vectores con los valores que representan a los grados académicos
+    `Graduation`, `Master` y `PhD` por separado.
+
+<details>
+
+<summary>Ejemplo de estructura</summary>
+
+<p>
+
+Por ejemplo para el caso de Graduation pueden generar estructuras de la
+siguiente forma:
+
+| ID   | Graduation |
+|------|------------|
+| 5524 | 58138      |
+| 2174 | 46344      |
+| 4141 | 71613      |
+| 6182 | 26646      |
+| 965  | 55635      |
+| ...  | ...        |
+
+Donde los valores en la fila de Graduation representan los sueldos de
+las diferentes personas que conforman el dataset. Un punto importante a
+considerar es que los datos para los diferentes grados académicos poseen
+diferentes numero de datos (no se asusten por esto).
+
+</p>
+
+</details>
+
+<p>
+
+</p>
+
+-   Programar el método Z-test con la metodología one sample y two
+    sample, obteniendo los p-valores a través de las alternativas
+    one-sided y two-sided. Para el caso de one-sided, cree una función
+    capaz de obtener la cola menor y mayor de la gaussiana.
+
+-   El calculo de las diferentes alternativas para calcular los
+    p-valores deberá ser un argumento de su función, donde señalando
+    'menor','mayor' (para los casos one-sided) y 'two-sided' deberá
+    obtener el valor pertinente para cada caso.
+
+-   Genere una función que permita realizar solo múltiples test del tipo
+    two-sample y aplique bonferroni correction a los p-valores
+    obtenidos. Notar que los múltiples test deberá realizar la
+    comparación entre todos los elementos de entrada, por ejemplo si
+    deseamos comparar los ingresos de `Graduation`, `Master` y `PhD`, se
+    deberían comparar los ingresos de `Graduation` v/s `Master`,
+    `Graduation` v/s `PhD` y `Master` y `PhD`.
+
+Codificada las funciones, realice los siguientes experimentos con su
+función de test de hipótesis:
+
+-   Compruebe si la media de los ingresos para la variable `Graduation`
+    es similar a 52000. Señale formalmente este experimento y obtenga
+    los p-valores para las alternativas one-sided y two-sided.
+
+-   Compruebe si la diferencia entre los ingresos de las personas con el
+    grado académico `Graduation` es cercana a cero en relación a la
+    recibida por los `Master` y `PhD`. Para este punto utilice la
+    función que le permite realizar múltiples test del tipo two-sample.
+
+Para estos experimentos usted deberá escoger un $\alpha$, y con éste
+comentar respecto a los p-valores obtenidos.
+
+Para los diferentes experimentos considere que la desviación estandar de
+la población para los diferentes `income` son los siguientes:
+
+$$\sigma_{Graduation} = 28180$$ $$\sigma_{Master} = 20160$$
+$$\sigma_{PhD} = 20615$$
+
+**Respuesta:**
+
+```{r}
+df = read.csv('marketing_campaign.csv', sep='\t')
+
+# Vectores por grado académico
+graduation.df <- subset(df, Education == "Graduation" & !is.na(Income), select = c(ID, Income))
+colnames(graduation.df)[colnames(graduation.df) == "Income"] <- "Graduation"
+
+master.df <- subset(df, Education == "Master" & !is.na(Income), select = c(ID, Income))
+colnames(master.df)[colnames(master.df) == "Income"] <- "Master"
+
+phd.df <- subset(df, Education == "PhD" & !is.na(Income), select = c(ID, Income))
+colnames(phd.df)[colnames(phd.df) == "Income"] <- "PhD"
+```
+
+```{r}
+# Implementación de Z-test one-sided y two-sided
+z_test <- function(data1=NULL, sigma1=0.5, data2=NULL, sigma2=0.5, 
+                   mu.Ha=0, test.type=c('one-sided', 'two-sided'), verbose=T){
+
+  if(length(test.type) >= 2) {
+    print("Por favor escoge un tipo de Test: ´one-sided´ o ´two-sided´ ")
+    return()
+  } else if(length(test.type) == 1 && !(test.type %in% c('menor', 'mayor', 'two-sided'))) {
+    print("Por favor escoge un tipo de Test: ´menor´, ´mayor´ o ´two-sided´")
+    return()
+  }
+
+  if(is.null(data2)) {
+    # One-sample Z-test
+    n1 <- length(data1)
+    mean1 <- mean(data1)
+    Z_score <- (mean1 - mu.Ha) / (sigma1 / sqrt(n1))
+
+    # P-value
+    if(test.type == 'menor') {p_value <- pnorm(Z_score)}
+    else if(test.type == 'mayor') {p_value <- 1 - pnorm(Z_score)}
+    else if(test.type == 'two-sided') {p_value <- 2 * (1 - pnorm(abs(Z_score)))}
+    
+    # Texto de Salida
+    if(verbose){cat("\tOne-sample Z-Test (", test.type, "):\n\nData analizada: ",
+                      deparse(substitute(data1)), "\nZ=", Z_score, 
+                      " | P-value=", p_value, "\n\n", sep="")}
+    return(p_value)
+
+  } else {
+    # Hypothesis test
+    n1 <- length(data1)
+    n2 <- length(data2)
+    mean1 <- mean(data1)
+    mean2 <- mean(data2)
+    Z_score <- (mean1 - mean2) / sqrt((sigma1^2 / n1) + (sigma2^2 / n2))
+
+    # p-value
+    if(test.type=='menor') {p_value = pnorm(Z_score)}
+    else if(test.type=='mayor') {p_value = 1 - pnorm(Z_score)}
+    else if(test.type=='two-sided') {p_value = 2 * pnorm(Z_score)}
+    
+    # Texto de Salida
+    if(verbose){cat("\tTwo-sample Z-Test (", test.type, "):\n\nData analizada: ",
+                      deparse(substitute(data1))," y ",
+                      deparse(substitute(data2)), "\nZ=", 
+                      Z_score, " | P-value=", p_value, "\n\n", sep="")}
+    return(p_value)
+  }
+}
+```
+
+```{r}
+# Implementación de múltiples test aplicando Bonferroni Correction
+z_test.multiple_testing <- function(data_list, sigma_list, verbose=T) {
+  p_values <- c()
+  comparisons <- c()
+
+  # Comparar los pares de grupos
+  for (i in 1:(length(data_list) - 1)) {
+    for (j in (i + 1):length(data_list)) {
+      data1 <- data_list[[i]]
+      data2 <- data_list[[j]]
+      sigma1 <- sigma_list[i]
+      sigma2 <- sigma_list[j]
+
+      # Realizar el Z-test de dos muestras
+      p_value <- z_test(data1, sigma1, data2, sigma2, test.type="two-sided", verbose=verbose)
+      p_values <- c(p_values, p_value)
+      comparisons <- c(comparisons, paste(names(data_list)[i], "vs", names(data_list)[j]))
+    }
+  }
+
+  # Aplicar corrección de Bonferroni
+  adjusted_p_values <- p.adjust(p_values, method="bonferroni")
+
+  return(data.frame(Comparaciones=comparisons, P_value=p_values, P_value_ajustado=adjusted_p_values))
+}
+```
+
+#### Primer Experimento:
+
+```{r}
+graduation.sigma <- 28180
+master.sigma <- 20160
+phd.sigma <- 20615
+```
+
+Para verificar la similitud de los ingresos para `Graduation` es similar
+a 52000 planteamos las hipótesis de la siguiente manera:
+
+-   Hipótesis nula$H_0$​: La media de ingresos para `Graduation` es igual
+    a 52000.
+
+$$ H_0 : \mu = 52000 $$
+
+Caso one-sided menor:
+
+-   Hipótesis alternativa $H_a$​: La media de ingresos para `Graduation`
+    es menor que 52000.
+
+    $$
+    H_a : \mu < 52000
+    $$
+
+Caso one-sided mayor:
+
+-   Hipótesis alternativa $H_a$​: La media de ingresos para `Graduation`
+    es mayor que 52000.
+
+    $$
+    H_a : \mu > 52000
+    $$
+
+Caso two-sided:
+
+-   Hipótesis alternativa$H_a$: La media de ingresos para `Graduation`
+    es diferente de 52000.
+
+$$
+H_0 : \mu \neq 52000
+$$
+
+```{r}
+p_value_menor <- z_test(data1=graduation.df$Graduation, sigma1=graduation.sigma, mu.Ha=52000, test.type='menor')
+p_value_mayor <- z_test(data1=graduation.df$Graduation, sigma1=graduation.sigma, mu.Ha=52000, test.type='mayor')
+p_value_two_sided <- z_test(data1=graduation.df$Graduation, sigma1=graduation.sigma, mu.Ha=52000, test.type='two-sided')
+
+cat("\nResultados del experimento:\n")
+cat("One-sided p-value (menor):", p_value_menor, "\n")
+cat("One-sided p-value (mayor):", p_value_mayor, "\n")
+cat("Two-sided p-value:", p_value_two_sided, "\n")
+```
+
+Considerando un nivel de significancia del 5%, es decir,
+$\alpha = 0.05$, los resultados obtenidos muestran que no es posible
+rechazar la hipótesis nula en ninguno de los 3 casos, dado que los 3
+valores son mayores a este valor, lo que significa que no hay evidencia
+estadísticamente significativa para concluir que la media de los
+ingresos para individuos del grado académico `Graduation` sea diferente
+de 52000, lo que finalmente valida la hipótesis nula inicialmente
+planteada, es decir, estos ingresos deben ser similares a 52000.
+
+#### Segundo experimento:
+
+-   Hipótesis nula$H_0$​: La diferencia en las medias de ingresos entre
+    los dos grupos es igual a cero.
+
+$$
+H_0 : \mu_1 = \mu_2
+$$
+
+-   Hipótesis alternativa$H_a$​: La diferencia en las medias de ingresos
+    entre los dos grupos es distinta de cero.
+
+$$
+H_a : \mu_1 \neq \mu_2
+$$
+
+```{r}
+data_list <- list(Graduation=graduation.df$Graduation, Master=master.df$Master, PhD=phd.df$PhD)
+sigma_list <- c(graduation.sigma, master.sigma, phd.sigma)
+results <- z_test.multiple_testing(data_list, sigma_list)
+
+print("Resultados de las comparaciones con corrección de Bonferroni:")
+print.data.frame(results)
+```
+
+Considerando el mismo nivel de significancia anterior, en el caso en que
+se compara `Graduation` con `Master` se tiene un p-valor ajustado mucho
+mayor a 0.05, indicando que no existe una diferencia significativa entre
+los ingresos de individuos en estos grados académicos, sugiriendo que la
+diferencia entre sus ingresos es cercana a 0. Adicionalmente, el caso en
+que se compara `Graduation` con `PhD` su p-valor ajustado es ligeramente
+mayor a 0.05, concluyendo lo mismo que se dijo anteriormente.
+
+En contraste, el caso restante si posee un p-valor ajustado menor al
+umbral, indicando que `PhD` posee ingresos significativamente distintos
+a `Graduation`.
+
+### Pregunta 3: Testeando múltiples hipótesis y Bonferroni Correction
+
+El objetivo de este problema es estudiar como realizar múltiples test de
+hipótesis simultáneamente. Para esto en primer lugar se estudiara el
+método "intuitivo", donde veremos sus limitantes y se comparará con el
+método llamado **Bonferroni correction**, posteriormente se realizará un
+estudio practico con el dataset `ratones.csv`.
+
+Un investigador se ha colocado en contacto con ustedes señalándoles que
+realiza diariamente test de hipótesis entre las muestras que toma día a
+día en su laboratorio. Con esto, al investigador le urge saber si
+realizar multiples test de hipótesis sin una corrección podría afectar
+la toma de decisiones. Para comprobar esto, les solicita comprobar
+matemáticamente como se comporta la probabilidad de obtener al menos un
+resultado significativo al azar de sus experimentos diarios. Para esto,
+les señala que la probabilidad de obtener un experimento por azar puede
+ser simulado a través de los casos exitosos de una binomial (valores
+mayores a cero), donde el número de observaciones son la cantidad de
+experimentos ($m$) y la probabilidad queda dada por $\alpha$ del test.
+
+A continuación, se entregan unas indicaciones mas especificas para
+desarrollar la pregunta:
+
+-   [x] Complete el código presentado a continuación que le permite
+    calcular la probabilidad empírica de que obtenga al menos un
+    resultado significativo para significancia $\alpha$ y cantidad de
+    experimentos $m$ arbitrarios.
+-   [x] Se puede verificar que para un nivel de significancia $\alpha$ y
+    $m$ experimentos independientes la probabilidad de que se tenga al
+    menos un resultado significativo por azar es
+    $$\mathbb{P}(\text{obtener al menos resultado significativo por azar})=1-(1-\alpha)^{m}$$
+-   [x] Considere $\alpha = 0.05$, grafique la probabilidad empírica y
+    real variando el valor de $m$ ¿Se parecen sus resultados? ¿Que
+    sucede cuando la cantidad de experimentos crece mucho? ¿Este
+    comportamiento depende del valor de significancia $\alpha$? ¿Es útil
+    este método para la realización de múltiples test de hipótesis?
+-   [x] Para solucionar los inconvenientes del método anterior es
+    posible utilizar el método de **Bonferroni correction**, modifique
+    su código anterior para verificar lo anterior ¿Mejoran los
+    resultados? ¿cual podría ser un problema si es que $m$ es muy
+    grande?
+-   [x] Ejecute el siguiente código que calcula el $p$-valor usual y el
+    $p$-valor asociado a Bonferroni (que corresponde al $p$-valor \* m
+    donde $m$ es el numero de experimentos), ¿Cuantos valores que
+    originalmente se hubieran aceptado fueron rechazados si
+    $\alpha = 0.05$? ¿Que implica esto sobre el nivel de falsos
+    negativos de este método?
+
+```{r, eval=FALSE}
+data <- read.csv("ratones.csv", sep= ";", stringsAsFactors=T)
+data[(as.numeric(as.character(sub("," , ".", data$p.value))) < 0.05) & (as.numeric(as.character(sub("," , ".", data$p.value.Bonferroni))) > 0.05), ]
+```
+
+**Respuesta Aquí:**
+
+```{r}
+probEmpirica <- function(alpha, m){
+  n <- 10000 # Cantidad de veces que se va a repetir el experimento para estimar la probabilidad
+  res <- rbinom(n, m, alpha) #Resultados de los experimentos
+  return(length(res[res > 0]) / n)
+}
+```
+
+```{r}
+m <- 100
+prob_exp <- 0.05
+muestras <- c(1:m)
+probs <- data.frame(muestra=integer(), prob=double(), tipo=integer())
+
+# Sin corrección
+for(muestra in muestras) {
+  res <- 1 - (1 - prob_exp)^muestra
+  valor <- probEmpirica(prob_exp, muestra)
+  z_teorico <- data.frame(muestra=muestra, prob=res, tipo=factor("Teórico"))
+  z_empirico <- data.frame(muestra=muestra, prob=valor, tipo=factor("Empírico"))
+  probs <- rbind(probs, z_teorico)
+  probs <- rbind(probs, z_empirico)
+}
+
+ggplot(probs, aes(muestra, prob)) +
+  geom_line(aes(colour=tipo)) +
+  ylim(0, 1) +     
+  xlim(0, m) + 
+  xlab("m") +  
+  ylab("Probabilidad") + 
+  ggtitle("Probabilidad teórica y empírica para α = 0.05")
+```
+
+Es posible evidenciar que ambas curvas son muy similares en todo
+momento, además de que la probabilidad tiende a 1 a medida que se
+aumenta el valor de $m$. Por último, si se cambia manualmente el valor
+de $\alpha$ se puede ver que este tiene un impacto en el comportamiento,
+en particular, la curva tiende más rápido a 1 si este valor aumenta y
+viceversa.
+
+Con esto se concluye que este método no es útil para realizar múltiples
+tests de hipótesis, dado que con suficientes pruebas es posible
+garantizar la obtención de resultados significativos, es por esto que se
+deben realizar correcciones con el fin de evitar la acumulación de
+errores tipo I.
+
+```{r}
+probs2 <- data.frame(muestra=integer(), prob=double(), tipo=integer())
+
+# Aplicando corrección de Borrefoni
+for(muestra in muestras) {
+  res <- 1 - (1 - prob_exp / muestra)^muestra
+  valor <- probEmpirica(prob_exp / muestra, muestra)
+  z_teorico <- data.frame(muestra=muestra, prob=res, tipo=factor("Teórico Corregido"))
+  z_empirico <- data.frame(muestra=muestra, prob=valor, tipo=factor("Empírico Corregido"))
+  probs2 <- rbind(probs2, z_teorico)
+  probs2 <- rbind(probs2, z_empirico)
+}
+
+ggplot(probs2, aes(muestra, prob)) +
+  geom_line(aes(colour=tipo)) +
+  geom_hline(aes(yintercept=prob_exp, linetype=as.character(prob_exp)), colour="green") +
+  scale_linetype_manual(name="α", values=2, guide=guide_legend(override.aes=list(color="green"))) +
+  ylim(0, 0.25) +
+  xlim(0, m) +
+  xlab("m") +
+  ylab("Probabilidad") +
+  ggtitle("Probabilidad teórica y empírica para α = 0.05")
+```
+
+Aplicando la corrección de Bonferroni es posible evidenciar que los
+resultados mejoran drásticamente, considerando que la probabilidad es
+prácticamente constante alrededor del valor del nivel de significancia
+(0.05).
+
+Pese a esto, cuando $m$ es muy grande, la corrección de Bonferroni puede
+hacer que el nivel de significancia ajustado sea extremadamente bajo,
+aumentando el riesgo de sufrir errores de tipo II.
+
+Por último, para la mayoría de los valores que originalmente hubieran
+sido aceptados ahora se rechazan, esto genera un aumento de los falsos
+negativos debido a que la probabilidad de los errores de tipo II tiene
+una relación inversa con los de tipo I.
+
+------------------------------------------------------------------------
+
+### Pregunta 4: Regresión Lineal sin comandos.
+
+El objetivo de la siguiente pregunta es aplicar los conceptos de
+regresión lineal vistos en clases para implementar desde cero un función
+capaz de realizar una regresión simple y múltiple.
+
+Para este problema, ustedes deberán estudiar el comportamiento de los
+clientes de un holding de salud. Para esto, se les hace entrega del
+dataset `insurance.csv` para que estudien la creación de un modelo
+lineal con sus datos. Antes de comenzar a trabajar, se señalan las
+diferentes variables que componen al dataset:
+
+-   age: Señala la edad de cada uno de los sujetos.
+-   sex: Si es mujer es igual a 1, si es hombre es igual a 0.
+-   bmi: Indice de masa corporal del cliente.
+-   children: Señala cuantos hijos tiene cada uno de los sujetos.
+-   smoker: Variable binaria que cuando es 1 señala que el cliente es
+    fumador (0 en caso contrario).
+-   charges: Gastos médicos de cada uno de los clientes.
+
+Es importante que considere que cada una de las filas representa un
+cliente distinto para el holding.
+
+Dentro del estudio, el holding de salud le solicita estudiar los
+comportamientos de los clientes fumadores y no fumadores, por lo que se
+le aconseja separar el dataframe original en fumadores y no fumadores.
+En el estudio, realicen un modelo lineal que tiene como variable de
+respuesta a `charges` y los datos que mejor se correlacionan para los
+clientes fumadores y no fumadores. Para esto, deberán realizar las
+siguientes actividades:
+
+#### Parte I
+
+a)  Programe un modelo lineal simple escogiendo la variable numérica que
+    tiene mayor relación con la variable de respuesta. Recuerde
+    justificar la elección de la variable numérica cuantitativamente.
+b)  Señale tanto el $R^2$ como el $R^2-adjustado$ del modelo.
+c)  Grafique el scatterplot de los datos y la linea que ajusta a la
+    regresión lineal obtenida.
+
+#### Parte II
+
+a)  Entrene un modelo lineal multivariable escogiendo dos variables
+    numéricas que posean la mayor relación con `charges`.
+b)  Estudie si el modelo multivariable posee mejor desempeño que el
+    modelo simple y comente los resultados. ¿Es recomendable la
+    utilización de los dos modelos creados para la predicción de nuevas
+    entradas?. Para este análisis puede utilizar los valores de test de
+    hipótesis entregados por el comando `lm()`, ya que esto le servirá
+    para observar si la regresión lineal es significativa.
+
+**Nota:** No esta permitido utilizar comandos que obtengan los valores
+solicitados directamente a menos que se le permita en la pregunta.
+
+```{r}
+insurance_df <- read.csv("insurance.csv", stringsAsFactors = T)
+smokers <- insurance_df[insurance_df$smoker == "yes",]
+smokers
+```
+
+```{r}
+(correlacion = cor(smokers[c(1,3,4,7)]))
+```
+
+Aquí vemos que la que tiene mayor correlación con charges es bmi.
+
+```{r}
+no_smokers <- insurance_df[insurance_df$smoker == "no",]
+(correlacion2 = cor(no_smokers[c(1,3,4,7)]))
+```
+
+En este caso, la que tiene mayor correlación es age.
+
+```{r}
+lm_reg <- function(X, Y){
+  mean_x <- mean(X)
+  mean_y <- mean(Y)
+  beta_1 <- (sum((X - mean_x) * (Y - mean_y))) / sum((X - mean_x)^2)
+  beta_0 <- mean_y - (beta_1 * mean_x)
+  y_tongo <- beta_0 + (beta_1 * X)
+  SSR <- sum((Y - y_tongo)^2)
+  SST <- sum((Y - mean_y)^2)   
+  R2 <- 1- (SSR/SST)
+  n <- length(Y)
+  R2_aj <- 1 - ((1 - R2) * (n - 1) / (n - 2))
+  print("La ecuación del modelo de regresión lineal simple es:")
+  cat("y =", beta_0, "+", beta_1, "* x\n")
+  print("Resultados de la regresión:")
+  cat("R^2 =", R2, "\n")
+  cat("R^2 ajustado =", R2_aj, "\n")
+  return (c(beta_0,beta_1))
+}
+```
+
+```{r}
+regSmokers <- lm_reg(smokers$bmi, smokers$charges)
+```
+
+```{r}
+regNoSmokers <- lm_reg(no_smokers$age, no_smokers$charges)
+```
+
+```{r}
+library(ggplot2)
+ggplot(smokers, aes(x = bmi, y = charges)) +
+  geom_point(color = "purple", alpha = 0.6) +  # Scatterplot de los datos
+  geom_abline(intercept = regSmokers[1], slope = regSmokers[2], color = "blue") + labs(title = "Regresión Lineal de Charges vs BMI para Smoker",
+       x = "BMI",
+       y = "Charges")
+```
+
+```{r}
+ggplot(no_smokers, aes(x = age, y = charges)) +
+  geom_point(color = "purple", alpha = 0.6) +  # Scatterplot de los datos
+  geom_abline(intercept = regNoSmokers[1], slope = regNoSmokers[2], color = "blue") + labs(title = "Regresión Lineal de Charges vs Age para No Smoker",
+       x = "age",
+       y = "Charges")
+```
+
+```{r}
+lm_reg_multi <- function(X1,X2,Y){
+  X <- as.matrix(cbind(1, X1, X2))
+ #X^T * X
+  XtX <- t(X) %*% X
+  
+  #(X^T * X)^-1
+  XtX_inv <- solve(XtX)
+  
+  #X^T * y
+  XtY <- t(X) %*% Y
+  
+  #beta = (X^T * X)^-1 * X^T * y
+  beta <- XtX_inv %*% XtY
+  y_tongo <- X %*% beta
+  SST <- sum((Y - mean(Y))^2)
+  SSE <- sum((Y - y_tongo)^2)
+  R2 <- 1 - (SSE / SST)
+  n <- length(Y)
+  p <- ncol(X) - 1
+  R2_aj <- 1 - (1 - R2) * (n - 1) / (n - p - 1)
+  print("La ecuación del modelo de regresión lineal multivariable es:")
+  cat("y =", beta[1], "+", beta[2],"*x1 +",beta[3],"*x2\n")
+  print("Resultados de la regresión:")
+  cat("R^2 =", R2, "\n")
+  cat("R^2 ajustado =", R2_aj, "\n")
+  return(beta)
+
+  }
+```
+
+```{r}
+multiRegSmokers <- lm_reg_multi(smokers$bmi, smokers$age, smokers$charges)
+```
+
+```{r}
+multiRegNoSmokers <- lm_reg_multi(no_smokers$age,no_smokers$children, no_smokers$charges)
+```
+
+```{r}
+#usando lm()
+ult <- lm(charges ~ bmi + age, data = smokers)
+summary(ult)
+```
+
+```{r}
+#usando lm()
+ult2 <- lm(charges ~ bmi, data = smokers)
+summary(ult2)
+```
+
+Respuesta:
+
+Efectivamente se tiene que el modelo multivariable tiene mejores
+resultados, ya que tanto R2 como R2 ajustado tienen valores más cercanos
+a 1 en ambos casos (fumadores y no fumadores).
+
+Con respecto a si es recomendable la utilización de los dos modelos
+creados, la respuesta es sí. Esto, ya que al comparar con los resultados
+obtenidos con el comando lm y summary, vemos que los valores de R2 y R2
+ajustado son muy similares, lo que indica que la precisión de los
+modelos creados es muy buena. Además, los valores de p-value son
+bastante bajos, lo que indica que las variables predictoras (bmi y bmi
+con ages para el caso de smokers) son relevantes para charges.
+
+```{r}
+#para no smokers
+ult <- lm(charges ~ age, data = no_smokers)
+summary(ult)
+```
+
+```{r}
+#para no smokers
+ult <- lm(charges ~ age+children, data = no_smokers)
+summary(ult)
+```
+
+Se concluye lo mismo con el caso de no_smokers.
+
+<hr />
+
+<p style="text-align: center;">
+
+A work by <a href="https://github.com/dccuchile/CC6104">CC6104</a>
+
+</p>
+
+<!-- Add icon library -->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+
+<!-- Add font awesome icons -->
+
+<p style="text-align: center;">
+
+<a href="https://github.com/dccuchile/CC6104"><i class="fab fa-github" style='font-size:30px'></i></a>
+<a href="https://discord.gg/XCbQvGs3Uf"><i class="fab fa-discord" style='font-size:30px'></i></a>
+
+</p>
+
+ 

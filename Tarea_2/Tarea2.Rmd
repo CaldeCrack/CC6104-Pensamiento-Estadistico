@@ -1,0 +1,602 @@
+---
+title: "Tarea 2"
+output:
+  html_document:
+    df_print: paged
+---
+
+![](banner.png)
+
+<center>
+
+<h1>Tarea 2: Frequentist Inference</h1>
+
+</center>
+
+<center><strong>CC6104: Statistical Thinking</strong></center>
+
+#### **Integrantes :**
+
+-   Andrés Calderón Guardia
+-   Delaney Tello Espinoza
+
+#### **Cuerpo Docente:**
+
+-   Profesor: Felipe Bravo M.
+-   Auxiliares: Martín Paredes, Benjamín Farías
+-   Ayudantes: Renzo Zanca, Kevin Iturra, Emilio Díaz, Scarleth Betancurt
+
+#### **Fecha límite de entrega:**
+
+### **Índice:**
+
+1.  [Objetivo](#id1)
+2.  [Instrucciones](#id2)
+3.  [Referencias](#id3)
+4.  [Elaboración de Código](#id4)
+
+### **Objetivo**<a name="id1"></a>
+
+[Bienvenid\@s](mailto:Bienvenid@s){.email} a la segunda tarea del curso Statistical Thinking. Esta tarea tiene como objetivo evaluar los contenidos teóricos de la segunda parte del curso, los cuales se enfocan principalmente en inferencia estadística, diseño de experimentos y test de hipótesis. Si aún no han visto las clases, se recomienda visitar los enlaces de las referencias.
+
+La tarea consta de una parte teórica que busca evaluar conceptos vistos en clases. Seguido por una parte práctica con el fin de introducirlos a la programación en R enfocada en el análisis estadístico de datos.
+
+### **Instrucciones:**<a name="id2"></a>
+
+-   La tarea se realiza en grupos de **máximo 2 personas**. Pero no existe problema si usted desea hacerla de forma individual.
+-   La entrega es a través de u-cursos a más tardar el día estipulado en la misma plataforma. A las tareas atrasadas se les descontará un punto por día.
+-   El formato de entrega es este mismo **Rmarkdown** y un **html** con la tarea desarrollada. Por favor compruebe que todas las celdas han sido ejecutadas en el archivo html.
+-   Al momento de la revisión tu código será ejecutado. Por favor verifica que tu entrega no tenga errores de compilación.
+-   No serán revisadas tareas desarrolladas en Python.
+-   Está **PROHIBIDO** la copia o compartir las respuestas entre integrantes de diferentes grupos.
+-   Pueden realizar consultas de la tarea a través de U-cursos y/o del canal de Discord del curso.
+
+### **Referencias:**<a name="id3"></a>
+
+Slides de las clases:
+
+-   [Introduction to Statistical Inference](https://github.com/dccuchile/CC6104/blob/master/slides/ST-inference.pdf)
+-   [Design of Experiments & Hypothesis Testing](https://github.com/dccuchile/CC6104/blob/master/slides/ST-hypothesis.pdf)
+
+Enlaces a videos de las clases:
+
+-   Introduction to Statistical Inference: [video1](https://youtu.be/A0BAhO9_RSI) [video2](https://youtu.be/6Io555e2stM) [video3](https://youtu.be/2-Q2f6zmTns) [video4](https://youtu.be/Hp2A5EJoXbk) [video5](https://youtu.be/M0Ag4bww7Q0) [video6](https://youtu.be/K7khgecup3I) [video7](https://youtu.be/uZ126Lh3L-k) [video8](https://youtu.be/kHSPx99nJ7g)
+-   Design of Experiments & Hypothesis Testing: [video1](https://youtu.be/3MueyHnNNig) [video2](https://youtu.be/JuyIrya23E0) [video3](https://youtu.be/OXTyG6DIvK4) [video4](https://youtu.be/95QeSwrNoLI) [video5](https://youtu.be/ZCr3WCdc-54) [video6](https://youtu.be/T6ZR0KoKhBQ)
+
+Documentación:
+
+-   [Boostrap en r](https://www.datacamp.com/community/tutorials/bootstrap-r)
+-   [ggplot2](https://ggplot2.tidyverse.org/)
+
+# Elaboración de Código<a name="id4"></a>
+
+En la siguiente sección deberá resolver cada uno de los experimentos computacionales a través de la programación en R. Para esto se le aconseja que cree funciones en R, ya que le facilitará la ejecución de gran parte de lo solicitado.
+
+Para el desarrollo preste mucha atención en los enunciados, ya que se le solicitará la implementación de métodos sin uso de funciones predefinidas. Por otro lado, Las librerías permitidas para desarrollar de la tarea 2 son las siguientes:
+
+```{r, echo=FALSE, warning=FALSE}
+# Manipulación de estructuras
+library(tidyverse)
+
+# Para realizar plots
+library(ggplot2)
+library(plotly)
+
+# Manipulación de varios plots en una imagen.
+library(gridExtra)
+```
+
+Elimine `eval=FALSE` para ejecutar las celdas.
+
+### Pregunta 1: Estimadores.
+
+-   [x] Considere una serie de variables aleatorias $X_i$ que siguen una distribución de Bernoulli de parámetro $p=0.5$ y un estimador de $p$ dado por $\hat{p}_{n, \sigma} = \epsilon_{\sigma} + \frac{1}{n} \displaystyle{\sum_{i=1}^{n}}X_{i}$ donde $\epsilon_{\sigma} \sim \mathcal{N}(0,\sigma)$. Para $\sigma = 0, 1, 2, 4$ grafique el valor de $\hat{p}_{n, \sigma}$ y compárelo con el valor verdadero. Calcule el sesgo del estimador para cada valor de $\sigma$.
+
+```{r, eval=TRUE}
+estimador <- function(sigma=0) {
+  for (n in x) {
+    e <- rnorm(1, 0, sigma) + (1/n) * sum(rbernoulli(cte)[1:n])
+    data <<- c(data, e)
+  }
+}
+
+mean_estimator_bias <- function(estimator_values, param) {
+  return(mean(estimator_values) - param)
+}
+```
+
+```{r, eval=TRUE}
+# sigma = 0
+cte <- rep(0.5, 1000)
+x <- 1:1000
+data <- c()
+
+estimador()
+plot(data, main="Estimador para Bernoulli con σ=0", xlab="n", ylab="Estimador")
+abline(h=0.5, col="red")
+legend('topright', "Valor Real", col="red", lty = c(1,1), bty ='n', cex=.75)
+```
+
+```{r, eval=TRUE}
+cat("σ=0\n")
+cat("Bias:", mean_estimator_bias(data, 0.5), "\n")
+```
+
+```{r, eval=TRUE}
+# sigma = 1
+data <- c()
+
+estimador(1)
+plot(data, main="Estimador para Bernoulli con σ=1", xlab="n", ylab="Estimador")
+abline(h=0.5, col="red")
+legend('topright', "Valor Real", col="red", lty = c(1,1), bty ='n', cex=.75)
+```
+
+```{r, eval=TRUE}
+cat("σ=1\n")
+cat("Bias:", mean_estimator_bias(data, 0.5), "\n")
+```
+
+```{r, eval=TRUE}
+# sigma = 2
+data <- c()
+
+estimador(2)
+plot(data, main="Estimador para Bernoulli con σ=2", xlab="n", ylab="Estimador")
+abline(h=0.5, col="red")
+legend('topright', "Valor Real", col="red", lty = c(1,1), bty ='n', cex=.75)
+```
+
+```{r, eval=TRUE}
+cat("σ=2\n")
+cat("Bias:", mean_estimator_bias(data, 0.5), "\n")
+```
+
+```{r, eval=TRUE}
+# sigma = 4
+data <- c()
+
+estimador(4)
+plot(data, main="Estimador para Bernoulli con σ=4", xlab="n", ylab="Estimador")
+abline(h=0.5, col="red")
+legend('topright', "Valor Real", col="red", lty = c(1,1), bty ='n', cex=.75)
+```
+
+```{r, eval=TRUE}
+cat("σ=4\n")
+cat("Bias:", mean_estimator_bias(data, 0.5), "\n")
+```
+
+> Respuesta
+
+-   [x] ¿Qué puede decir del sesgo de los estimadores $\hat{p}_{n,\sigma}$? ¿Son los estimadores con menos sesgo más precisos? Justifique.
+
+> Respuesta
+
+Se evidencia claramente como al introducir valores aleatorios que siguen la distribución normal centrada en 0 pero con un $\sigma > 0$ el estimador pierde consistencia, dado que pese a cumplir la primera condición, es decir, tener un sesgo cercano a 0, a medida que aumenta el valor de $\sigma$ las estimaciones no tienden al valor real, lo cual es la segunda condición para considerarse consistente.
+
+En este caso se demostró empíricamente que los estimadores con menos sesgo no necesariamente son los más precisos dado el argumento previo.
+
+### Pregunta 2: Intervalo de Confianza
+
+En las preguntas 2, 3 y 4 deberá trabajar con el dataset `diabetes_prediction_dataset`.
+
+```{r}
+datos <- read.csv("diabetes_prediction_dataset.csv", header = TRUE)
+head(datos)
+```
+
+Una forma de estimar la distribución de la media de una población es a través de la realización de la `sampling distribution` de una distribución cualquiera. El valor obtenido en cada sampling distribution nos entrega un estimador de la media que posee una determinada distribución de la población. Sabiendo esto, calcule la `sampling distribution` de las columnas `bmi` y `blood_glucose_level`, obteniendo el intervalo de confianza de $95\%$ para cada una de las medias obtenidas desde la distribución. Para realizar este experimento considere los siguientes puntos:
+
+-   [x] Obtener las medias y desviaciones estándar de la población real.
+-   [x] Realizar una `sampling distribution` con un tamaño de muestra igual a $100$. Repita la obtención de la media un número elevado de veces (recomendación $5000$ veces).
+-   [x] Calcular el intervalo de confianza para cada uno de las medias obtenidas en las iteraciones.
+-   [x] De acuerdo a los valores obtenidos (medias e intervalos de confianza), grafique cada una de las medias obtenidas en conjunto a sus intervalos de confianza. Aquí debe notar que, si el intervalo de confianza contiene a la media de la población, este se considerará como parte del intervalo de confianza del $95\%$, haga un conteo de cuantos valores están contenidos en este intervalo. Para graficar los intervalos de confianza puede ser útil utilizar forest plot.
+-   [x] Compare las estimaciones para `bmi` y `blood_glucose_level` y señale que diferencias y similitudes encuentra entre estas (en cuanto a la calidad de la estimación, no los valores obtenidos). De una explicación de por qué cree que se dan las similitudes/diferencias.
+
+**Hints**:
+
+-   Para comparar comparar las 2 estimaciones puede ser útil normalizar `bmi` y `blood_glucose_level` a una misma escala.
+-   Para realizar la `sampling distribution` podría serle útil el comando `sample()`.
+-   Puede ser útil generar un dataframe para graficar con ggplot2.
+
+**Respuesta:**
+
+```{r, eval=TRUE}
+
+# Definimos tamaños de muestreo
+tamano_muestra = 100
+n_muestras = 10000
+
+# Inicializamos estructuras necesarias
+list_mean_bmi = vector()
+list_interval_izq_bmi = vector()
+list_interval_der_bmi = vector()
+list_typeCI_bmi = vector()
+prop_bmi = 0
+sucess_bmi = 0
+
+list_mean_bgl = vector()
+list_interval_izq_bgl = vector()
+list_interval_der_bgl = vector()
+list_typeCI_bgl = vector()
+prop_bgl = 0
+sucess_bgl = 0
+
+#normalizamos columnas
+bmi_col <- na.omit((datos$bmi - min(datos$bmi))/(max(datos$bmi)-min(datos$bmi)))
+bgl_col <- na.omit((datos$blood_glucose_level - min(datos$blood_glucose_level))/(max(datos$blood_glucose_level)-min(datos$blood_glucose_level)))
+
+# Obtenemos la media y desviación estándar de cada columna
+real_mean_bmi <- mean(bmi_col, na.rm = TRUE)
+real_mean_bgl <- mean(bgl_col, na.rm = TRUE)
+
+real_std_bmi <- sd(bmi_col, na.rm = TRUE)
+real_std_bgl <- sd(bgl_col, na.rm = TRUE)
+
+# Sampling distribution, calculo del intervalo de confianza y proporción.
+for (i in 1:n_muestras) {
+  #hacemos los samples
+  sample_bmi <-sample(bmi_col, tamano_muestra,replace=TRUE)
+  sample_bgl <- sample(bgl_col, tamano_muestra,replace=TRUE)
+  #calculamos y guardamos las medias de cada sample
+  mean_sample_bmi <- mean(sample_bmi)
+  list_mean_bmi <- c(list_mean_bmi, mean_sample_bmi)
+  mean_sample_bgl <- mean(sample_bgl)
+  list_mean_bgl <- c(list_mean_bgl, mean_sample_bgl)
+  #para la fórmula de intervalo de confianza
+  zmedio <- qt(1 - 0.05 / 2, df =tamano_muestra-1)
+  lim_izq_bmi <- mean_sample_bmi - (zmedio*real_std_bmi/sqrt(tamano_muestra))
+  lim_der_bmi <- mean_sample_bmi + (zmedio*real_std_bmi/sqrt(tamano_muestra))
+  list_interval_izq_bmi <- c(list_interval_izq_bmi, lim_izq_bmi)
+  list_interval_der_bmi <- c(list_interval_der_bmi, lim_der_bmi)
+  
+  if(lim_izq_bmi <= real_mean_bmi & lim_der_bmi >= real_mean_bmi){
+    sucess_bmi <- sucess_bmi+1
+    list_typeCI_bmi <- c(list_typeCI_bmi,TRUE)
+  }else{
+    list_typeCI_bmi <- c(list_typeCI_bmi,FALSE)
+  }
+  
+  lim_izq_bgl <- mean_sample_bgl - (zmedio*real_std_bgl/sqrt(tamano_muestra))
+  lim_der_bgl <- mean_sample_bgl + (zmedio*real_std_bgl/sqrt(tamano_muestra))
+  list_interval_izq_bgl <- c(list_interval_izq_bgl, lim_izq_bgl)
+  list_interval_der_bgl <- c(list_interval_der_bgl, lim_der_bgl)
+  
+  if(lim_izq_bgl <= real_mean_bgl & lim_der_bgl >= real_mean_bgl){
+    sucess_bgl <- sucess_bgl+1
+    list_typeCI_bgl <- c(list_typeCI_bgl,TRUE)
+  }else{
+    list_typeCI_bgl <- c(list_typeCI_bgl,FALSE)
+  }
+}
+
+# Generamos dataframes para plotear mas facilmente los datos.
+dfp2_bmi <- data.frame(y = seq(1, 100),Mean_bmi=list_mean_bmi[1:100], Izq_CI_bmi = list_interval_izq_bmi[1:100], Der_CI_bmi = list_interval_der_bmi[1:100], In_Out_bmi=list_typeCI_bmi[1:100])
+
+dfp2_bgl <- data.frame(y = seq(1,100), Mean_bgl=list_mean_bgl[1:100],  Izq_CI_bgl = list_interval_izq_bgl[1:100], Der_CI_bgl = list_interval_der_bgl[1:100], In_Out_bgl=list_typeCI_bgl[1:100])
+#calculamos las proporciones
+prop_bmi<- sucess_bmi/n_muestras
+prop_bgl <- sucess_bgl/n_muestras
+```
+
+```{r, eval=TRUE}
+# Plot de Intervalos de confianza
+mu_bmi <- mean(dfp2_bmi$Mean_bmi)
+
+ggplot(dfp2_bmi, aes(x = Mean_bmi, y =y)) +
+  geom_errorbarh(aes(xmin = Izq_CI_bmi, xmax = Der_CI_bmi , color = factor(In_Out_bmi)), height = 0.2) +
+  geom_point() +
+  geom_vline(xintercept = mu_bmi, color = "black", linetype = "solid") +  # Línea en la media de BMI
+  labs(title = "Forest Plot para BMI", x = "BMI", y = "Muestras") +
+  theme_minimal() 
+```
+
+```{r, eval=TRUE}
+# Plot de Intervalos de confianza
+mu_bgl <- mean(dfp2_bgl$Mean_bgl)
+
+ggplot(dfp2_bgl, aes(x = Mean_bgl, y = y)) +
+  geom_errorbarh(aes(xmin = Izq_CI_bgl, xmax = Der_CI_bgl , color = factor(In_Out_bgl)), height = 0.2) +
+  geom_point() +
+  geom_vline(xintercept = mu_bgl, color = "black", linetype = "solid") +  # Línea en la media de BMI
+  labs(title = "Forest Plot para BGL", x = "BGL", y = "Muestras") +
+  theme_minimal()
+
+```
+
+```{r, eval=TRUE}
+barplot(c(sucess_bmi, n_muestras - sucess_bmi), 
+        names.arg = c("Exitos", "Fracasos"),
+        col = c("skyblue", "pink"),
+        main = "BMI",
+        ylab = "cantidad")
+```
+
+```{r, eval=TRUE}
+barplot(c(sucess_bgl, n_muestras - sucess_bgl), 
+        names.arg = c("Exitos", "Fracasos"),
+        col = c("skyblue", "pink"),
+        main = "BGL",
+        ylab = "cantidad")
+```
+
+```{r, eval=TRUE}
+# Plot de proporción de CI
+cant.unos <- cumsum(list_typeCI_bgl)
+cant.unos2 <- cumsum(list_typeCI_bmi)
+
+# Después calculamos la proporción de 1s en cada punto 
+# (normalizamos)
+prop.unos <- cant.unos/seq(from=1, to=length(cant.unos), by=1)
+prop.unos2 <- cant.unos2/seq(from=1, to=length(cant.unos2), by=1)
+
+# Gráfico de la convergencia
+plot(prop.unos, xlab = "Cantidad de samples", ylab = "Probabilidad", type = "l", col = "pink", lwd = 2, ylim = c(0, 1))
+
+lines(prop.unos2, col = "purple", lwd = 2)
+
+abline(h = 0.95, col = "red", lty = 2)
+
+legend("bottomright", legend = c("BGL", "BMI"), col = c("pink", "purple"), lwd = 2)
+```
+
+> Respuesta
+
+En cuanto a la proporción de los datos se evidencia que estos concuerdan con la confianza del 95%, mientras que respecto a la calidad de la estimación, se puede apreciar visualmente que para el caso de bgl los valores varían un poco más. Para compararlos calcularemos el error estándar: $SE=\frac{\sigma}{\sqrt{n}}$. En este caso n sería para ambos igual a 100. Para bmi tenemos: $\frac{0.07746}{10}$ Para bgl tenemos: $\frac{0.1850}{10}$
+
+Es decir, SEbmi \< SEbgl, lo cual explica la observación previamente mencionada. Las estimaciones de la media para bmi son más precisas que las de bgl, ya que el error estándar de bmi es menor. Un error estándar más bajo indica que las medias muestrales están más cercanas a la media real de la población. Esto implica intervalos de confianza más estrechos y más precisión en la estimación.
+
+Siguiendo lo anterior mencionado, efectivamente se puede observar que los largos de los intervalos en el caso de bgl son un poco mayores que los de bmi, esto también se explica por el hecho de que stdbgl\>stdbmi. Al tener los datos una mayor variabilidad afecta a los resultados haciendo que se dificulte un poco más estimar de forma más acertada.
+
+### Pregunta 3: Estimación de Máxima Verosimilitud
+
+El objetivo de esta parte será estimar la media `bmi` mediante MLE. Para responder la pregunta realice los siguientes puntos:
+
+-   [x] Grafique el histograma de `bmi` y obtenga la media y varianza de los datos.
+-   [x] Calcule el valor teórico del estimador de máxima verosimilitud $\hat{\mu}$ para la media, asumiendo una distribución normal y fijando $\sigma^2$ en la varianza muestral.
+
+$$ loglike(\mu) = -n\log\sigma -\frac{nS^2}{2\sigma^2} -\frac{n(\bar{X}-\mu)^2}{2\sigma^2} $$ $$ S = n^{-1}\sum^n_{i=1} X_i - \bar{X}^2 $$
+
+-   [x] Gráfique a traves de un gráfico de calor el rango de valores en que se mueve la solución del problema de likelihood (puede ser útil `persp()` o `filled.contour()`). Considere el histograma de `bmi` y el valor de $\hat{\mu}$ para definir un rango adecuado para la media, y que $\sigma$ está entre 1 y 7.
+-   [x] Aplique el comando `nlminb()` sobre la función likelihood (o log-likelihood) para encontrar el óptimo de $\mu$ y $\sigma$ computacionalemte.
+-   [x] Compare el valor dado por `nlminb()` con el resultado teórico y la media muestral, y comente sus resultados.
+
+Cabe señalar que el método de máxima verosimilitud deberá ser programado por usted y **no** podrá utilizar librerías que entreguen el valor directo (por ejemplo la librería MASS).
+
+**Respuesta**
+
+```{r, eval=TRUE}
+# Histograma
+#hist(datos$bmi,main = "Histograma de BMI",breaks=20, xlab = "BMI", ylab = "Frecuencia", col = "pink", border = "black")
+
+ggplot(datos, aes(x = bmi)) + 
+  geom_histogram(binwidth = 1, fill = "pink", color = "black", alpha = 0.7) +
+  labs(title = "Histograma de BMI", x = "BMI", y = "Frecuencia") +
+  theme_minimal()
+```
+
+```{r, eval=TRUE}
+media_p3<-mean(datos$bmi)
+varianza_p3 <- var(datos$bmi)
+```
+
+Cálculo de valor teórico del estimador de máxima verosimilitud $\hat{\mu}$ para la media, asumiendo una distribución normal y fijando $\sigma^2$ en la varianza muestral. Derivamos con respecto a mu. $$ \frac {\partial Loglike}{\partial \mu}= \frac{\partial}{\partial \mu}(-\frac{n*(\bar{X}^{2}-2\bar{X}\mu+\mu^2)}{2\sigma^2}) = \frac{n*(\bar{X} - \mu)}{\sigma^2} $$ Y ahora procedemos a igualar a cero:
+
+$$ \frac{n*(\bar{x} - \mu)}{\sigma^2}=0 \Rightarrow \bar{X} - \mu=0 \Rightarrow \bar{X} = \mu $$
+
+Así se concluye que el valor teórico del estimador de máxima verosimilitud $\hat{\mu}$ para la media es $\bar{X} = \mu$
+
+```{r, eval=TRUE}
+# Media
+# función log likelihood
+ll_plot <- function(mu, sigma) {
+  n<- length(datos$bmi)
+  X_raya <- mean(datos$bmi)
+  S_cuadrado <- sum((datos$bmi - X_raya)^2) / n
+  resultado <- (-n * log(sigma)) - ((n * S_cuadrado )/ (2 * sigma^2)) - 
+               (n * ((X_raya - mu)^2) / (2 * (sigma^2)))
+  
+  return (-resultado)
+}
+
+ll_plot <- Vectorize(ll_plot)
+```
+
+```{r, eval=TRUE}
+# definir espacio donde se va a evaluar ll_plot
+mu_m <- seq(27,28,by=0.1)
+sigma_m <- seq(1,7, by=0.1)
+likelihood_m <- outer(X=mu_m, Y=sigma_m, ll_plot)
+
+filled.contour(x=mu_m, y=sigma_m, z=likelihood_m, xlab=expression(mu), 
+               ylab=expression(sigma), color = topo.colors)
+```
+
+```{r, eval=TRUE}
+# definir espacio donde se va a evaluar ll_plot
+mu_m <- seq(27,28,by=0.1)
+sigma_m <- seq(6,7, by=0.1)
+likelihood_m <- outer(X=mu_m, Y=sigma_m, ll_plot)
+
+filled.contour(x=mu_m, y=sigma_m, z=likelihood_m, xlab=expression(mu), 
+               ylab=expression(sigma), color = topo.colors)
+```
+
+```{r, eval=TRUE}
+likelihood_mean <- function(param) {
+  # Definimos los parametros de entrada de la funcion
+  mu <- param[1]
+  sigma <- param[2]
+  # Definimos la likelihood como la suma logaritmica de la función de densidad
+  ll_plot(mu,sigma)
+  # ...
+}
+
+# Agregue el rango donde operará nlminb
+nlminb(objective=likelihood_mean, start=c(27,6), lower=c(27, 1), upper=c(28, 7))
+```
+
+Al comparar los valores de la media real y la teórica se tiene que son las misma, además, la obtenida con max likelihood nos dió 27.32077. Por lo que se establece que la estimación es muy buena.
+
+Con respecto a los resultados obtenidos, vemos que el gráfico generado centra el mínimo cerca del mínimo real, lo cual indica que efectivamente está bien hecho y es el resultado que se esperaba.
+
+### Pregunta 4: Bootstrap I
+
+En esta pregunta se busca el error estándar y el intervalo de confianza para la varianza de la columna `HbA1c_level`.
+
+Las actividades por realizar son las siguientes:
+
+-   [x] Programar el método Bootstrap para calcular el error estándar de la varianza. No se permite la utilización de librerías de bootstrap para esta parte.
+-   [x] Visualizar a través de un gráfico de puntos las distintas varianzas obtenidas al realizar el muestreo con Bootstrap y comparar con el valor real.
+-   [x] Visualizar a través de un gráfico el histograma obtenido al realizar el muestreo con Bootstrap y comparar con el valor real.
+-   [x] Obtener el 95% de intervalo de confianza de la estimación.
+-   [x] ¿Qué se puede inferir a partir de los resultados de Bootstrap?
+
+**Respuesta:**
+
+```{r, eval=TRUE}
+# Bootstrap
+B <- 5000
+largo <- length(datos$HbA1c_level)
+output <- c()
+
+for (it in 1:B) {
+  output <- c(output, var(sample(datos$HbA1c_level, largo, replace=T)))
+}
+```
+
+```{r, eval=TRUE}
+# Gráfico de puntos
+se <- sd(output)
+valor_real <- mean(output)
+
+plot(output, main="Varianzas obtenidas con Bootstrap", xlab="iteración", ylab="varianza")
+abline(h=valor_real, col="red")
+legend('topright', "Valor Real", col="red", lty = c(1,1), bty ='n', cex=.75)
+```
+
+```{r, eval=TRUE}
+# Histograma
+h <- hist(output, breaks=20, plot=F)
+h$density <- h$counts / sum(h$counts)
+plot(h, freq=F, main="Histograma del muestreo con Bootstrap", xlab="varianza", ylab="frecuencia", col="pink")
+
+x_vals <- seq(min(output), max(output), length = 1000)
+y_vals <- dnorm(x_vals, mean(output), sd(output))
+y_vals_scaled <- y_vals * sum(h$density) * diff(h$mids[1:2])
+lines(x_vals, y_vals_scaled, col = "blue", lwd=2)
+
+abline(v=valor_real, col="red")
+legend('topright', c("Valor Real", "Sample dnorm"), col=c("red", "blue"), lty = c(1, 1), cex=.75)
+```
+
+```{r, eval=TRUE}
+# Obtenemos error e intervalos de confianza
+se_vars <- se
+alpha <- 0.05
+
+# límite inferior
+l.CI <- quantile(output, alpha/2)
+# límite superior
+u.CI <- quantile(output, 1-alpha/2)
+
+sprintf('El intervalo de confianza del 95%% de las varianzas es: (%.5f, %.5f)', l.CI , u.CI)
+sprintf('El SE de las varianzas es: (%.5f)', se_vars)
+```
+
+> Respuesta
+
+Realizar Bootstrap sobre la columna de datos `HbA1c_level` genera un histograma tal que se aproxima a una distribución normal, mostrando además que el error estándar de la varianza es muy bajo, con lo cual se puede inferir que el estimador de la varianza de datos tiene una buena precisión y es posible que los datos originales tengan poca variabilidad.
+
+### Pregunta 5: Bootstrap II
+
+El siguiente código genera una regresión lineal de `bmi` con respecto a `age`, es decir, una función lineal de `age`, $y(age) = b + m\cdot age$, que pretende determinar el valor de `bmi`.
+
+```{r}
+linearMod <- lm(bmi ~ age, data=datos)
+print(linearMod)
+```
+
+```{r}
+m <- linearMod$coefficients["age"]
+b <- linearMod$coefficients["(Intercept)"]
+
+ggplot() +
+  geom_point(aes(x=datos$age, y=datos$bmi)) +
+  geom_line(aes(x=datos$age, y=datos$age*m+b), color="red") +
+  ggtitle("Regresión lineal") +
+  ylab("bmi") + 
+  xlab("Age")
+```
+
+Repita el proceso de la pregunta 4 para estimar el error e intervalos de confianza de los parámetros de la regresión ($m$ y $b$). ¿Qué indican los resultados de Bootstrap? ¿Un valor bajo en el error significa que la regresión es buena?
+
+```{r, eval=TRUE}
+# Bootstrap
+B <- 500
+largo <- 1000
+output_m <- c()
+output_b <- c()
+
+for (it in 1:B) {
+  output_m <- c(output_m, lm(bmi ~ age, datos[sample(nrow(datos), largo, replace=T), ])$coefficients["age"])
+  output_b <- c(output_b, lm(bmi ~ age, datos[sample(nrow(datos), largo, replace=T), ])$coefficients["(Intercept)"])
+}
+```
+
+```{r, eval=TRUE}
+# Obtenemos error e intervalos de confianza
+se_m <- sd(output_m)
+alpha <- 0.05
+
+# límite inferior
+l.CI <- quantile(output_m, alpha/2)
+# límite superior
+u.CI <- quantile(output_m, 1-alpha/2)
+
+sprintf('El intervalo de confianza del 95%% de m es: (%.3f, %.3f)', l.CI , u.CI)
+sprintf('El SE de m es: (%.5f)', se_m)
+```
+
+```{r, eval=TRUE}
+# Obtenemos error e intervalos de confianza
+se_b <- sd(output_b)
+alpha <- 0.05
+
+# límite inferior
+l.CI <- quantile(output_b, alpha/2)
+# límite superior
+u.CI <- quantile(output_b, 1-alpha/2)
+
+sprintf('El intervalo de confianza del 95%% de b es: (%.3f, %.3f)', l.CI , u.CI)
+sprintf('El SE de b es: (%.3f)', se_b)
+```
+
+> Respuesta
+
+Es posible evidenciar que el error estándar para ambas variables es relativamente pequeño, indicando que al calcular los parámetros `m` y `b` según las muestras de Bootstrap, estos resultan en parámetros similares para la regresión lineal según el estimador, esto, dado que al tomar samples de tamaño mil para cada iteración, los datos en general tomarán una distribución similar a los originales pese al muestreo realizado, resultando efectivamente en una buena estimación de estos valores en cada iteración. Que este error sea bajo solamente indica que las estimaciones de `m` y `b` son consistentes y estables, pero no necesariamente que la regresión lineal sea "buena" en el sentido de capturar adecuadamente la relación entre estas variables, para verificar de mejor forma si esta regresión es buena sería útil calcular el coeficiente de determinación $R^2$ y analizar su valor.
+
+ 
+
+<hr />
+
+<p style="text-align: center;">
+
+A work by <a href="https://github.com/dccuchile/CC6104">CC6104</a>
+
+</p>
+
+<!-- Add icon library -->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+
+<!-- Add font awesome icons -->
+
+<p style="text-align: center;">
+
+<a href="https://github.com/dccuchile/CC6104"><i class="fab fa-github" style='font-size:30px'></i></a> <a href="https://discord.gg/XCbQvGs3Uf"><i class="fab fa-discord" style='font-size:30px'></i></a>
+
+</p>
+
+ 
