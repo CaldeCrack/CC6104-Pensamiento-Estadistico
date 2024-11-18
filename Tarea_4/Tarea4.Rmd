@@ -7,65 +7,67 @@ output:
 
 ![](banner.png)
 
-<center> <h1>Tarea 4: Bayesian Inference</h1> </center>
-<center><strong>CC6104: Statistical Thinking</strong></center>
-#### **Integrantes :** 
+<center>
 
-- Alumno 1
-- Alumno 2
+<h1>Tarea 4: Bayesian Inference</h1>
+
+</center>
+
+<center><strong>CC6104: Statistical Thinking</strong></center>
+
+#### **Integrantes :**
+
+-   Delaney Tello Espinoza
+-   Andrés Calderón Guardia
 
 #### **Cuerpo Docente:**
 
 -   Profesor: Felipe Bravo M.
 -   Auxiliar: Martín Paredes, Benjamín Farías
 -   Ayudantes: Scarleth Betancurt, Emilio Díaz, Kevin Iturra, Renzo Zanca
-            
 
 ### **Índice:**
 
-1. [Objetivo](#id1)
-2. [Instrucciones](#id2)
-3. [Referencias](#id3)
-4. [Elaboración de Código](#id5)
+1.  [Objetivo](#id1)
+2.  [Instrucciones](#id2)
+3.  [Referencias](#id3)
+4.  [Elaboración de Código](#id5)
 
 ### **Objetivo**<a name="id1"></a>
 
 Bienvenides a la cuarta tarea del curso Statistical Thinking. Esta tarea tiene como objetivo evaluar los contenidos teóricos de la primera parte del curso, los cuales se enfocan principalmente en introducirlos en la estadística bayesiana. Si aún no han visto las clases, se recomienda visitar los enlaces de las referencias.
 
-La tarea consta de una parte práctica con el fin de introducirlos a la programación en R enfocada en el análisis estadístico de datos. 
+La tarea consta de una parte práctica con el fin de introducirlos a la programación en R enfocada en el análisis estadístico de datos.
 
 ### **Instrucciones:**<a name="id2"></a>
 
-- La tarea se realiza en grupos de **máximo 2 personas**. Pero no existe problema si usted desea hacerla de forma individual.
-- La entrega es a través de u-cursos a más tardar el día estipulado en la misma plataforma. A las tareas atrasadas se les descontará un punto por día.
-- El formato de entrega es este mismo **Rmarkdown** y un **html** con la tarea desarrollada. Por favor compruebe que todas las celdas han sido ejecutadas en el archivo html.
-- Al momento de la revisión tu código será ejecutado. Por favor verifica que tu entrega no tenga errores de compilación.
-- No serán revisadas tareas desarrolladas en Python.
-- Está **PROHIBIDO** la copia o compartir las respuestas entre integrantes de diferentes grupos.
-- Pueden realizar consultas de la tarea a través de U-cursos y/o del canal de Discord del curso. 
-
+-   La tarea se realiza en grupos de **máximo 2 personas**. Pero no existe problema si usted desea hacerla de forma individual.
+-   La entrega es a través de u-cursos a más tardar el día estipulado en la misma plataforma. A las tareas atrasadas se les descontará un punto por día.
+-   El formato de entrega es este mismo **Rmarkdown** y un **html** con la tarea desarrollada. Por favor compruebe que todas las celdas han sido ejecutadas en el archivo html.
+-   Al momento de la revisión tu código será ejecutado. Por favor verifica que tu entrega no tenga errores de compilación.
+-   No serán revisadas tareas desarrolladas en Python.
+-   Está **PROHIBIDO** la copia o compartir las respuestas entre integrantes de diferentes grupos.
+-   Pueden realizar consultas de la tarea a través de U-cursos y/o del canal de Discord del curso.
 
 ### **Referencias:**<a name="id3"></a>
 
 Slides de las clases:
 
-- [Introduction to Bayesian Inference](https://github.com/dccuchile/CC6104/blob/master/slides/3_1_ST-bayesian.pdf)
-- [Summarizing the Posterior](https://github.com/dccuchile/CC6104/blob/master/slides/3_2_ST-posterior.pdf)
-
+-   [Introduction to Bayesian Inference](https://github.com/dccuchile/CC6104/blob/master/slides/3_1_ST-bayesian.pdf)
+-   [Summarizing the Posterior](https://github.com/dccuchile/CC6104/blob/master/slides/3_2_ST-posterior.pdf)
 
 Videos de las clases:
 
-- Introduction to Bayesian Inference: [video1](https://youtu.be/Gf2uuElPH0g) [video2](https://youtu.be/5ZZ3PTPdZQw) [video3](https://youtu.be/d_jXwM_-5jc) [video4](https://youtu.be/yZW1V3X4J94) [video5](https://youtu.be/-fw0ktR7psM) [video6](https://youtu.be/0oK9M82sw8Q) [video7](https://youtu.be/u7Qdw5rDDDU)
-- Summarizing the Posterior: [video1](https://youtu.be/67o8wcZsgtk)  [video2](https://youtu.be/Xr8S1Uv_5GQ) [video3](https://youtu.be/XJKyW4tYp_0) [video4](https://youtu.be/OMipgV727wo)
+-   Introduction to Bayesian Inference: [video1](https://youtu.be/Gf2uuElPH0g) [video2](https://youtu.be/5ZZ3PTPdZQw) [video3](https://youtu.be/d_jXwM_-5jc) [video4](https://youtu.be/yZW1V3X4J94) [video5](https://youtu.be/-fw0ktR7psM) [video6](https://youtu.be/0oK9M82sw8Q) [video7](https://youtu.be/u7Qdw5rDDDU)
+-   Summarizing the Posterior: [video1](https://youtu.be/67o8wcZsgtk) [video2](https://youtu.be/Xr8S1Uv_5GQ) [video3](https://youtu.be/XJKyW4tYp_0) [video4](https://youtu.be/OMipgV727wo)
 
 Documentación:
 
-- [rethinking](https://github.com/rmcelreath/rethinking)
-- [tidyr](https://tidyr.tidyverse.org)
-- [purrr](https://purrr.tidyverse.org)
-- [dplyr](https://dplyr.tidyverse.org)
-- [ggplot2](https://ggplot2.tidyverse.org/)
-
+-   [rethinking](https://github.com/rmcelreath/rethinking)
+-   [tidyr](https://tidyr.tidyverse.org)
+-   [purrr](https://purrr.tidyverse.org)
+-   [dplyr](https://dplyr.tidyverse.org)
+-   [ggplot2](https://ggplot2.tidyverse.org/)
 
 #Elaboración de Código<a name="id5"></a>
 
@@ -92,31 +94,29 @@ library(gridExtra)
 library("rethinking")
 ```
 
-Si no tiene instalada la librería “rethinking”, ejecute las siguientes líneas de código para instalar la librería:
+Si no tiene instalada la librería "rethinking", ejecute las siguientes líneas de código para instalar la librería:
 
 ```{r, eval=FALSE}
 install.packages("rethinking")
 ```
 
-En caso de tener problemas al momento de instalar la librería con el código anterior, utilice las siguiente chunk:
+En caso de tener problemas al momento de instalar la librería con el código anterior, utilice el siguiente chunk:
 
 ```{r, eval=FALSE}
-install.packages(c("mvtnorm","loo","coda"), repos="https://cloud.r-project.org/",dependencies=TRUE)
+install.packages(c("mvtnorm","loo","coda"), repos="https://cloud.r-project.org/", dependencies=T)
 options(repos=c(getOption('repos'), rethinking='http://xcelab.net/R'))
-install.packages('rethinking',type='source')
+install.packages('rethinking', type='source')
 ```
-
 
 ### Pregunta 1:
 
 Un conjunto de carteros aburridos de las mordidas de perros ha decidido realizar un catastro de mordidas recibidas por los empleados de su empresa en un periodo de 8 meses, planeando en base a estos datos realizar inferencia bayesiana. Los datos de las mordidas estas datos por el dataset `no+mordidas.csv`, en donde cada fila representa las mordidas recibidas por diferentes carteros y las columnas señalan si fue mordido o no el cartero en los meses de estudio (si fue mordido es señalado con un 1, de lo contrario es señalado con un 0). Cabe señalar que un cartero no puede ser mordido mas de una vez al mes, ya que el damnificado recibe licencia de todo un mes tras la mordida, reincorporándose el siguiente mes al trabajo.
 
 ```{r, eval=FALSE}
-dataMordidas <- read.csv("no+mordidas.csv", header = TRUE)
+dataMordidas <- read.csv("no+mordidas.csv", header = T)
 ```
 
-- [] Uno de los carteros le comenta que, según él, lo han mordido 6 de cada 10 veces, y le recomienda usar esta información como antecedente para su inferencia. Para ello considere como prior la distribución gausseana de media 0.6 y desviación estándar 0.05. Programe el método grid approximation para 1, 2, 4 y 8 meses. ¿Como van cambiando las curvas posterior?
-
+-   [x] Uno de los carteros le comenta que, según él, lo han mordido 6 de cada 10 veces, y le recomienda usar esta información como antecedente para su inferencia. Para ello considere como prior la distribución gaussiana de media 0.6 y desviación estándar 0.05. Programe el método grid approximation para 1, 2, 4 y 8 meses. ¿Como van cambiando las curvas posterior?
 
 ```{r, eval=FALSE}
 cols <- c("bites_month_1", "bites_month_2", "bites_month_3",
@@ -124,19 +124,21 @@ cols <- c("bites_month_1", "bites_month_2", "bites_month_3",
           "bites_month_7", "bites_month_8")
 
 grid_len <- 100
-p_grid <- 
-prior <- 
+p_grid <- seq(0, 1, length.out=grid_len)
+prior <- dnorm(p_grid, mean = 0.6, sd = 0.05)
 
 posteriors <- c()
 counted.months <- c()
 p_grids <- rep(p_grid, 4)
 
 for (n in c(1, 2, 4, 8)) {
-  x <- # total de mordidas
+  subset_data <- dataMordidas[, cols[1:n], drop = F]
+  x <- sum(subset_data)
+  N <- nrow(subset_data) * n
   
-  likelihood <- 
-  unstd.posterior <- 
-  posterior <- 
+  likelihood <- dbinom(x, size = N, prob = p_grid)
+  unstd.posterior <- likelihood * prior
+  posterior <- unstd.posterior / sum(unstd.posterior)
   
   posteriors <- c(posteriors, posterior)
   counted.months <- c(counted.months, rep(n, grid_len))
@@ -146,26 +148,30 @@ post.df <- data.frame("grid"=p_grids, "posterior"=posteriors, "months"=counted.m
 
 ggplot(post.df) +
   geom_line(aes(x=grid, y=posterior)) +
-  facet_grid(months ~ .)
+  facet_grid(months ~ .) +
+  labs(title = "Posteriors para diferentes números de meses",
+       x = "Proporción de mordidas (p)",
+       y = "Posterior")
 ```
 
 **Respuesta:**
 
+A medida que se aumenta la cantidad de meses es posible evidenciar como disminuye la incertidumbre sobre el valor de p dado que se observan colas más pequeñas y una curva más angosta, esto dado que al utilizar más datos la información que proveen estos domina por sobre la prior inicialmente planteada, lo que a su vez demuestra que el cartero planteó que le mordían 6 de cada 10 veces, pero viendo los datos completos se ve que en realidad este valor es más cercano a 4 de 10.
 
-
-- [] Vuelva a aplicar grid approximation como el parte anterior, pero esta vez con prior uniforme y compare los resultados. ¿Qué puede decir sobre la elección de los priors?
-
+-   [x] Vuelva a aplicar grid approximation como el parte anterior, pero esta vez con prior uniforme y compare los resultados. ¿Qué puede decir sobre la elección de los priors?
 
 ```{r, eval=FALSE}
-prior <- 
+prior <- dunif(p_grid)
 posteriors <- c()
 
 for (n in c(1, 2, 4, 8)) {
-  x <- 
+  subset_data <- dataMordidas[, cols[1:n], drop = F]
+  x <- sum(subset_data)
+  N <- nrow(subset_data) * n
   
-  likelihood <- 
-  unstd.posterior <- 
-  posterior <- 
+  likelihood <- dbinom(x, size = N, prob = p_grid)
+  unstd.posterior <- likelihood * prior
+  posterior <- unstd.posterior / sum(unstd.posterior)
   
   posteriors <- c(posteriors, posterior)
 }
@@ -173,158 +179,193 @@ for (n in c(1, 2, 4, 8)) {
 post.df$posterior2 <- posteriors
 
 ggplot(post.df) +
-  geom_line(aes(x=grid, y=posterior)) +
-  geom_line(aes(x=grid, y=posterior2), color="red") +
-  facet_grid(months ~ .)
+  geom_line(aes(x=grid, y=posterior, colour="Gaussiana")) +
+  geom_line(aes(x=grid, y=posterior2, colour="Uniforme")) +
+  scale_color_manual(name="Prior", values=c("Gaussiana"="black", "Uniforme"="red")) +
+  facet_grid(months ~ .) +
+  labs(title = "Posteriors para diferentes números de meses",
+       x = "Proporción de mordidas (p)",
+       y = "Posterior")
 ```
 
 **Respuesta:**
 
+Es posible evidenciar que ambas curvas son distintas, con la principal característica siendo que para la prior uniforme, su posterior tan solo refleja la información de los datos, lo que implica una distribución inicial sin preferencias y por ello está más centrada alrededor de 0.4 como se mencionó en el punto anterior, mientras que la gaussiana afecta la forma de la curva haciéndola tender hacia el valor de la media 0.6 que se eligió para esta. Pero a medida que la cantidad de meses aumenta, y por lo tanto, los datos utilizados, la curva con prior gaussiana converge hacia la otra, dado que se disminuyó el impacto que posee su prior inicial al considerar más meses en el análisis.
 
+En base a esto es que se puede decir que la elección inicial de la prior afectará los resultados más notablemente al utilizar pocos datos, pero tras considerar una cantidad mayor esta elección inicial se hará menos relevante, así que al final la importancia de elegir una prior recae en que tan rápido convergerá a la distribución real de los datos.
 
-- [] Repita el mismo analisis anterior pero utilizando el metodo de Laplace (no necesita programar el metodo, puede utilizar la libreria "rethinking"). ¿Cómo se comparan con los resultados anteriores?
-
+-   [x] Repita el mismo análisis anterior pero utilizando el método de Laplace (no necesita programar el método, puede utilizar la librería "rethinking"). ¿Cómo se comparan con los resultados anteriores?
 
 ```{r, eval=FALSE}
 for (n in c(1, 2, 4, 8)) {
   res <- quap(
     alist(
-      W ~ , # binomial likelihood
-      p ~  # uniform pior
+      W ~ dbinom(L, p), # binomial likelihood
+      p ~ dunif(0, 1) # uniform prior
     ),
-    data = list(W=sum(dataMordidas[, cols[1:n]]),L=n*250-sum(dataMordidas[, cols[1:n]])) )
+    data = list(W=sum(dataMordidas[, cols[1:n], drop=F]),L=n*nrow(dataMordidas[, cols[1:n], drop=F]))
+  )
   
   df <- precis(res)
-  curve(dnorm(x, df$mean, df$sd), lty=2, add=FALSE)
+  curve(dnorm(x, df$mean, df$sd) / sum(dnorm(x, df$mean, df$sd)), lty=2, add=FALSE,
+        main=paste("Posterior usando Laplace (n=", n, ")", sep=""),
+        xlab="Proporción de mordidas (p)",
+        ylab="Posterior")
 }
 ```
 
 **Respuesta:**
 
+Mediante este método se obtienen resultados que difiere principalmente con respecto a la grid-approximation que utilizaba la prior gaussiana, esto debido a que con Laplace se obtuvo una distribución centrada alrededor de 0.4, en contraste con la previa que inicia en 0.6. En cambio, este resultado no se diferencia mucho respecto al caso en que se realiza la grid-approximation con prior uniforme, esto debido a que para el método de Laplace también se utilizó una prior uniforme y los datos poseen un comportamiento simétrico.
 
+-   [x] Grafique la densidad de la posterior y encuentre la proporción de los siguientes defined boundaries:
 
+-   [x] $(0, 0.35)$
 
-- [] Grafique la densidad de la posterior y encuentre la proporción de los siguientes defined boundaries:
+-   [x] $(0.35, 0.45)$
 
-- [ ] $(0, 0.35)$
-- [ ] $(0.35, 0.45)$
-- [ ] $(0.45, 1)$
+-   [x] $(0.45, 1)$
 
-¿Cómo puede interpretar los resultados? 
+¿Cómo puede interpretar los resultados?
 
 ```{r, eval=FALSE}
 grid_len <- 1000
-p_grid <- 
+p_grid <- seq(0, 1, length.out=grid_len)
+prior <- dunif(p_grid)
 
-prior <- 
+W <- sum(dataMordidas)
+total <- ncol(dataMordidas) * nrow(dataMordidas)
+likelihood <- dbinom(W, size=total, prob=p_grid)
 
-likelihood <- 
+unstd.posterior <- likelihood * prior
+posterior <- unstd.posterior / sum(unstd.posterior)
 
-unstd.posterior <- 
-
-posterior <- 
-
-samples <- sample(p_grid, prob=posterior, size=1e4, replace=TRUE)
-
-dens(samples)
+samples <- sample(p_grid, prob=posterior, size=1e4, replace=T)
+res <- dens(samples)
 ```
 
 Intervalos:
 
-
 ```{r, eval=FALSE}
 # fracción de valores <0.35
+fraction.1 <- sum(posterior[p_grid < 0.35])
+fraction.1
 ```
 
 ```{r, eval=FALSE}
 # fracción de valores entre 0.35 y 0.45
+fraction.2 <- sum(posterior[p_grid >= 0.35 & p_grid < 0.45])
+fraction.2
 ```
 
 ```{r, eval=FALSE}
 # fracción de valores >0.45
+fraction.3 <- sum(posterior[p_grid >= 0.45])
+fraction.3
 ```
 
 **Respuesta:**
 
+En base a los resultados se puede observar como los intervalos (0, 0.35) y (0.45, 1) poseen valores muy cercanos a 0, apoyado visualmente por la densidad de la posterior que se graficó, lo que finalmente indica que una proporción de mordidas en estos intervalos es prácticamente 0, mientras que es casi seguro que la verdadera proporción de mordidas p se encuentre en el intervalo intermedio, es decir, entre 0.35 y 0.45.
 
-
-
--[] Calcule un intervalo de credibilidad al $50%$, $75%$ y $95%$. ¿Como se puede interpretar los resultados? ¿Cual podría ser un problema al usar intervalos de credibilidad? 
-
+-   [x] Calcule un intervalo de credibilidad al $50%$, $75%$ y $95%$. ¿Como se puede interpretar los resultados? ¿Cual podría ser un problema al usar intervalos de credibilidad?
 
 Intervalo $50\%$:
-```{r, eval=FALSE}
 
+```{r, eval=FALSE}
+PI(samples, prob=0.5)
 ```
 
 Intervalo $75\%$
+
 ```{r, eval=FALSE}
-
-```
-
-Intervalo $95\%$
-```{r, eval=FALSE}
-
-```
-
-**Respuesta:**
-
-
-
-
-- [ ] Genere los intervalos HDPI para $50%$, $75%$ y $95%$, compárelos con  los intervalos de credibilidad de la parte anterior. ¿En que se diferencian los intervalos de credibilidad con los HDPI? 
-
-
-Intervalo $50\%$:
-```{r}
-
-```
-
-
-Intervalo $75\%$
-
-```{r}
-
+PI(samples, prob=0.75)
 ```
 
 Intervalo $95\%$
 
-```{r}
-
+```{r, eval=FALSE}
+PI(samples, prob=0.95)
 ```
 
 **Respuesta:**
 
+Estos resultados muestran que la proporción verdadera de mordidas está altamente concentrada en torno a valores cercanos a 0.4 dado que el rango es estrecho para todos los casos y además que al aumentar el porcentaje de credibilidad el rango de valores se extiende por muy poco.
 
+Pese a esto, un problema que poseen estos intervalos de credibilidad es que dependen de la distribución de la posterior, y si en particular esta no es simétrica o multimodal entonces estos intervalos pueden omitir regiones significativas de probabilidad fuera del rango seleccionado, aunque para esta experimentación en particular no pareciera ser el caso.
 
-- [ ] Utilizando la posterior obtenida en la parte anterior, simule 10.000 réplicas de registros de mordidas. Compare la distribución del ratio de carteros mordidos predichos a partir de las réplicas con el ratio real de los datos. ¿El modelo se ajusta bien a los datos? Es decir, ¿la distribución de las predicciones incluye la observación real como resultado central y probable?
+-   [x] Genere los intervalos HDPI para $50%$, $75%$ y $95%$, compárelos con los intervalos de credibilidad de la parte anterior. ¿En que se diferencian los intervalos de credibilidad con los HDPI?
+
+Intervalo $50\%$:
+
+```{r}
+HPDI(samples, prob=0.5)
+```
+
+Intervalo $75\%$
+
+```{r}
+HPDI(samples, prob=0.75)
+```
+
+Intervalo $95\%$
+
+```{r}
+HPDI(samples, prob=0.95)
+```
+
+**Respuesta:**
+
+Se nota que los valores resultantes son muy similares a los obtenidos en la parte anterior, esto indica que la distribución de la posterior es bastante simétrica, esto pues los primeros resultados que se obtuvieron poseen ambas colas con la misma probabilidad asignada, mientras que los HPDI no poseen esta limitación y en cambio solo buscan el rango de valores más estrecho tal que posea en total una cierta probabilidad, de modo que estos dos casos solo son similares cuando la distribución es simétrica.
+
+-   [x] Utilizando la posterior obtenida en la parte anterior, simule 10.000 réplicas de registros de mordidas. Compare la distribución del ratio de carteros mordidos predichos a partir de las réplicas con el ratio real de los datos. ¿El modelo se ajusta bien a los datos? Es decir, ¿la distribución de las predicciones incluye la observación real como resultado central y probable?
 
 ```{r, eval=FALSE}
-ratio.real <- 
-samples <- 
+n_total <- nrow(dataMordidas) * ncol(dataMordidas)
+ratio.real <- sum(dataMordidas) / n_total
+
+simulaciones <- rbinom(10000, size=n_total, prob=samples)
+ratio.simulados <- simulaciones / n_total
 
 ggplot() +
-  geom_density(aes(samples)) +
-  geom_vline(aes(xintercept=ratio.real), color="red")
+  geom_density(aes(ratio.simulados)) +
+  geom_vline(aes(xintercept=ratio.real), color="red") +
+  labs(
+    title = "Comparación entre predicciones y proporción real",
+    x = "Proporción de mordidas (p)",
+    y = "Densidad"
+  )
 ```
-
 
 **Respuesta:**
 
+En base a este gráfico es posible ver como la observación real se haya en el centro de la distribución, mostrando que el modelo se ajusta bien a los datos ya que este es efectivamente un resultado central y probable.
 
-
-- [ ] Escoja cualquier par de meses concecutivos y obtenga la posterior de que una persona que fue mordida en el primer mes, sea mordida nuevamente en el segundo mes. Para esto, se recomienda comenzar buscando los carteros que fueron mordidos el primer mes y en base a estos generar una búsqueda indexada para obtener el número solicitado. Hecho esto simule ese número carteros mordidos 10.000 veces. De los resultados obtenidos, compare el recuento de carteros mordidos con el recuento real. ¿Cómo se ve el modelo desde este punto de vista?
+-   [ ] Escoja cualquier par de meses consecutivos y obtenga la posterior de que una persona que fue mordida en el primer mes, sea mordida nuevamente en el segundo mes. Para esto, se recomienda comenzar buscando los carteros que fueron mordidos el primer mes y en base a estos generar una búsqueda indexada para obtener el número solicitado. Hecho esto simule ese número de carteros mordidos 10.000 veces. De los resultados obtenidos, compare el recuento de carteros mordidos con el recuento real. ¿Cómo se ve el modelo desde este punto de vista?
 
 ```{r, eval=FALSE}
+# se eligen el primer y segundo mes para este análisis
+mes_1.mordidos <- which(dataMordidas$bites_month_1 == 1)
+mordidos_consecutivos.cant <- sum(dataMordidas$bites_month_2[mes_1.mordidos])
 
+prob_mordido2 <- mordidos_consecutivos.cant / length(mes_1.mordidos)
+simulaciones <- rbinom(10000, size=length(mes_1.mordidos), prob=prob_mordido2)
 
+ggplot() +
+  geom_density(aes(simulaciones)) +
+  geom_vline(aes(xintercept = mordidos_consecutivos.cant), color = "red") +
+  labs(
+    title = "Simulación de carteros mordidos en ambos meses",
+    x = "Número de carteros mordidos",
+    y = "Densidad"
+  )
 ```
 
 **Respuesta:**
 
+Al igual que en el punto anterior, es posible evidenciar que el modelo nuevamente se ajusta de forma correcta a los datos dado que las simulaciones generaron una distribución de datos en la cual el valor observado, en este caso, la cantidad de carteros que fueron mordidos en ambos meses, es central y probable, indicando que describe bien la relación entre las mordidas consecutivas de estos dos meses.
 
-
----
+------------------------------------------------------------------------
 
 ### Pregunta 2:
 
@@ -332,9 +373,7 @@ En esta pregunta se trabajara con el dataset "notas.csv" el cual contiene las no
 
 Usted sabe un dato extra sobre la información, $\sigma \in [0.5,1.5]$ y, además, tiene una fuerte creencia a que es mas probable encontrar la desviación estándar real entre $[0.5,1]$ que en $(1,1.5]$.
 
-
-- [ ] Modifique el siguiente codigo que permite realizar una grid approximation para $2$ parámetros. Proponga priors para $\mu$ y $\sigma$, justifique su elección.
-
+-   [ ] Modifique el siguiente codigo que permite realizar una grid approximation para $2$ parámetros. Proponga priors para $\mu$ y $\sigma$, justifique su elección.
 
 ```{r,eval=FALSE}
 # Librerias
@@ -385,10 +424,7 @@ data_grid$posterior <- (data_grid$posterior - min(data_grid$posterior))/(max(dat
 
 **Respuesta:**
 
-
-
-- [ ] Tras haber ejecutado el código de la parte anterior ejecute el siguiente, ¿Que puede decir de los valores de la distribución? Se recomienda hacer modificaciones en el código para realizar un mejor análisis y estudio.
-
+-   [ ] Tras haber ejecutado el código de la parte anterior ejecute el siguiente, ¿Que puede decir de los valores de la distribución? Se recomienda hacer modificaciones en el código para realizar un mejor análisis y estudio.
 
 ```{r, eval=FALSE}
 
@@ -427,14 +463,9 @@ plt <- data_grid %>%
 plt
 ```
 
-
 **Respuesta:**
 
-
-
-
-- [ ] A continuación se presenta un código que permite realizara la distribución dada por sampling from grid approximation ¿Para que sirve este proceso? ¿Que puede deducir del gráfico?
-
+-   [ ] A continuación se presenta un código que permite realizara la distribución dada por sampling from grid approximation ¿Para que sirve este proceso? ¿Que puede deducir del gráfico?
 
 ```{r, eval=FALSE}
 
@@ -456,8 +487,7 @@ dens(df)
 
 **Respuesta:**
 
-
----
+------------------------------------------------------------------------
 
 ### Pregunta 3: Regresión Lineal Bayesiana
 
@@ -469,13 +499,11 @@ Para esta pregunta usaremos el dataset `Pokemon.csv`, que contiene las caracter�
 poke.df <- read.csv("Pokemon.csv")
 ```
 
-
-- [ ] Defina un modelo de regresión bayesiana para modelar `Sp..Atk` en función de `Attack`, definiendo sus propios priors. Comente cada una de sus asunciones y señale a través de ecuaciones el modelo.
-- [ ] Ajuste el modelo lineal utilizando el método de Laplace approximation. Estudie a través del comando `precis` los resultados obtenidos y coméntelos.
-- [ ] Gráfique el MAP de regresión lineal obtenida, añadiendo al gráfico el intervalo del $95\%$ que se tiene sobre la media y los valores predecidos de la altura. Comente los resultados obtenidos y señale si su modelo logra ser un buen predictor de los valores estudiados.
+-   [ ] Defina un modelo de regresión bayesiana para modelar `Sp..Atk` en función de `Attack`, definiendo sus propios priors. Comente cada una de sus asunciones y señale a través de ecuaciones el modelo.
+-   [ ] Ajuste el modelo lineal utilizando el método de Laplace approximation. Estudie a través del comando `precis` los resultados obtenidos y coméntelos.
+-   [ ] Gráfique el MAP de regresión lineal obtenida, añadiendo al gráfico el intervalo del $95\%$ que se tiene sobre la media y los valores predecidos de la altura. Comente los resultados obtenidos y señale si su modelo logra ser un buen predictor de los valores estudiados.
 
 **Respuesta:**
-
 
 ```{r, eval=FALSE}
 
@@ -489,22 +517,32 @@ ggplot() +
   geom_ribbon(aes(x=, y=, ymin=, ymax=), alpha=0.1, fill="orange")
 ```
 
+ 
 
-
-&nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/dccuchile/CC6104">CC6104</a></p>
+
+<p style="text-align: center;">
+
+A work by <a href="https://github.com/dccuchile/CC6104">CC6104</a>
+
+</p>
 
 <!-- Add icon library -->
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 
 <!-- Add font awesome icons -->
+
 <p style="text-align: center;">
-    <a href="https://github.com/dccuchile/CC6104"><i class="fab fa-github" style='font-size:30px'></i></a>
+
+<a href="https://github.com/dccuchile/CC6104"><i class="fab fa-github" style='font-size:30px'></i></a>
+
 </p>
 
 <p style="text-align: center;">
-    <a href="https://discord.gg/XCbQvGs3Uf"><i class="fab fa-discord" style='font-size:30px'></i></a>
+
+<a href="https://discord.gg/XCbQvGs3Uf"><i class="fab fa-discord" style='font-size:30px'></i></a>
+
 </p>
 
-&nbsp;
+ 
